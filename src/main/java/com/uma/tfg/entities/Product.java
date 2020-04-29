@@ -14,6 +14,7 @@ public class Product {
     private String name;
     private String description;
     private Double price;
+    private Double rating;
 
     @OneToMany(mappedBy = "user")
     private Set<Bill> bills;
@@ -30,10 +31,11 @@ public class Product {
 
     public Product() {}
 
-    public Product(String name, String description, Double price, Long idProductImage) {
+    public Product(String name, String description, Double price, Double rating, Long idProductImage) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.rating = rating;
         if (idProductImage != null) {
             ProductImage productImage = new ProductImage();
             productImage.setId(idProductImage);
@@ -73,7 +75,15 @@ public class Product {
         this.price = price;
     }
 
-    public Set<Bill> getBills() {
+    public Double getRating() {
+		return rating;
+	}
+
+	public void setRating(Double rating) {
+		this.rating = rating;
+	}
+
+	public Set<Bill> getBills() {
         return bills;
     }
 

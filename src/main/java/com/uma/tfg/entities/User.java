@@ -1,6 +1,8 @@
 package com.uma.tfg.entities;
 
 import javax.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -16,7 +18,17 @@ public class User {
     private String nickname;
     private String password;
     private Integer userType;
+    
+    private Integer tlf;
+    private LocalDate birthday;
+    private String city;
+    private String address;
+    private Integer zipcode;
+    
+    @Lob
+    private String profilePicture;
     private Integer flagActive;
+    
 
     @OneToMany(mappedBy = "user")
     private Set<Bill> bills;
@@ -43,9 +55,17 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "task_id"))
     private Set<Task> assignedTasks;
 
+    @ManyToOne
+    @JoinColumn(name="user_place")
+    private Country country;
+    
+    @ManyToOne
+    @JoinColumn(name="user_gender")
+    private Gender gender;
+    
     public User() {}
 
-    public User(String name, String firstLastName, String secondLastName, String email, String nickname, String password, Integer userType, Integer flagActive) {
+    public User(String name, String firstLastName, String secondLastName, String email, String nickname, String password, String profilePicture, Integer userType, Integer flagActive, Long idCountry, String nameCountry, Long idGender, String gender) {
         this.name = name;
         this.firstLastName = firstLastName;
         this.secondLastName = secondLastName;
@@ -53,7 +73,22 @@ public class User {
         this.nickname = nickname;
         this.password = password;
         this.userType = userType;
+        this.profilePicture = profilePicture;
         this.flagActive = flagActive;
+        
+        if(idCountry != null) {
+            Country country = new Country();
+            country.setId(idCountry);
+            country.setName(nameCountry);
+            this.country = country;
+        }
+        
+        if(idGender != null) {
+            Gender gen = new Gender();
+            gen.setId(idCountry);
+            gen.setGender(gender);
+            this.gender = gen;
+        }
     }
 
     public Long getId() {
@@ -120,7 +155,15 @@ public class User {
         this.userType = userType;
     }
 
-    public Integer getFlagActive() {
+    public String getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
+	public Integer getFlagActive() {
         return flagActive;
     }
 
@@ -184,7 +227,63 @@ public class User {
         this.assignedTasks = assignedTasks;
     }
 
-    @Override
+    public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
+	public Integer getTlf() {
+		return tlf;
+	}
+
+	public void setTlf(Integer tlf) {
+		this.tlf = tlf;
+	}
+
+	public LocalDate getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(LocalDate birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public Integer getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(Integer zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	@Override
     public String toString() {
         return "User{" +
                 "id=" + id +

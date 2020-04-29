@@ -13,7 +13,6 @@ import payroll.UserNotFoundException;
 
 import javax.transaction.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

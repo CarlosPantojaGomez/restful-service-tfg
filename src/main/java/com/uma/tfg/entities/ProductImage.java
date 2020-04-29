@@ -1,13 +1,12 @@
 package com.uma.tfg.entities;
 
-import org.hibernate.annotations.Nationalized;
-
 import javax.persistence.*;
 
-import java.sql.Clob;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Entity
-public class ProductImage implements java.io.Serializable{
+public class ProductImage {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -15,15 +14,18 @@ public class ProductImage implements java.io.Serializable{
 
     @Lob
     private String url;
+    private Integer imageType;
 
     @ManyToOne
+    @JsonIgnoreProperties(value= {"description" , "price", "rating" , "bills", "comments", "profileImage", "images"}, allowSetters=true)
     private Product product;
 
     public ProductImage() {}
 
-    public ProductImage(String url, Long idProductProfile , Long idProduct) {
+    public ProductImage(String url, Long idProductProfile , Integer imageType, Long idProduct) {
         this.url = url;
-
+        this.imageType = imageType;
+        
         if (idProduct != null) {
             Product product = new Product();
             product.setId(idProduct);
@@ -47,7 +49,15 @@ public class ProductImage implements java.io.Serializable{
         this.url = url;
     }
 
-    public Product getProduct() {
+    public Integer getImageType() {
+		return imageType;
+	}
+
+	public void setImageType(Integer imageType) {
+		this.imageType = imageType;
+	}
+
+	public Product getProduct() {
         return product;
     }
 

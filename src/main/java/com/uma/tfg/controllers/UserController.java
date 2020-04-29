@@ -33,15 +33,16 @@ public class UserController {
         userService.createUser(user);
     }
 
-    @PutMapping("/userDelete/{id}")
+    @DeleteMapping("/userDelete/{id}")
     public void deleteUser(@PathVariable String id) throws Exception {
         Long idUser = Long.parseLong(id);
         userService.deleteUser(idUser);
     }
 
     @GetMapping("/user/{id}")
-    public User getUser(@PathVariable Long id) throws Exception {
-        return userService.getUser(id);
+    public User getUser(@PathVariable String id) throws Exception {
+    	Long idUser = Long.parseLong(id);
+        return userService.getUser(idUser);
     }
 
     @GetMapping("/user/findEmail/{email}")

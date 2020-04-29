@@ -12,16 +12,20 @@ public class Task {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+    private String name;
     private LocalDate creationDate;
+    private LocalDate endDate;
     private String description;
     private Integer priority;
     private Integer state;
     private Integer numHours;
 
     @OneToMany(mappedBy = "task")
+    @JsonIgnoreProperties(value= {"creator" , "task"}, allowSetters=true)
     private Set<TaskComment> comments;
 
     @OneToMany(mappedBy = "task")
+    @JsonIgnoreProperties(value= {"url" , "task"}, allowSetters=true)
     private Set<TaskImage> images;
 
     @ManyToOne
@@ -34,8 +38,10 @@ public class Task {
 
     public Task() {}
 
-    public Task(LocalDate creationDate, String description, Integer priority,Integer state, Integer numHours, Long idCreator, String nameCreator) {
-        this.creationDate = creationDate;
+    public Task(String name, LocalDate creationDate, LocalDate endDate, String description, Integer priority,Integer state, Integer numHours, Long idCreator, String nameCreator) {
+        this.name = name;
+    	this.creationDate = creationDate;
+        this.endDate = endDate;
         this.description = description;
         this.priority = priority;
         this.state = state;
@@ -57,7 +63,15 @@ public class Task {
         this.id = id;
     }
 
-    public LocalDate getCreationDate() {
+    public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public LocalDate getCreationDate() {
         return creationDate;
     }
 
@@ -65,7 +79,15 @@ public class Task {
         this.creationDate = creationDate;
     }
 
-    public String getDescription() {
+    public LocalDate getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getDescription() {
         return description;
     }
 

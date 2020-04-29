@@ -1,6 +1,5 @@
 package com.uma.tfg.controllers;
 
-import com.uma.tfg.entities.Mail;
 import com.uma.tfg.entities.Task;
 import com.uma.tfg.entities.User;
 import com.uma.tfg.services.TaskService;

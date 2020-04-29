@@ -33,7 +33,7 @@ public class ProductController {
     public List<Product> all() {
         return productService.getAll();
     }
-    
+
     @DeleteMapping("/product/delete/{id}")
     public void deleteProduct(@PathVariable Long id) throws Exception {
         productService.delete(id);
