@@ -21,8 +21,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     User findByNicknameAndFlagActive(String nickname, Integer flag);
     
     User findByNicknameAndPasswordAndFlagActive(String nickname, String password, Integer flag);
-
-    @Modifying
+ 
     @Query("update User user set user.flagActive = :flagActive where user.id = :id")
     void setFlagActive(@Param("flagActive") Integer flagActive, @Param("id") Long id);
 
