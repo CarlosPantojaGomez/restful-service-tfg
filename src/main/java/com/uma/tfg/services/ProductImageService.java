@@ -16,8 +16,8 @@ public class ProductImageService {
     @Autowired
     private ProductImageRepository productImageRepository;
 
-    public void createProductImage(ProductImage productImage) {
-    	productImageRepository.save(productImage);
+    public ProductImage createProductImage(ProductImage productImage) {
+    	return productImageRepository.save(productImage);
     }
 
     public ProductImage getProductImage(Long id) throws Exception{
