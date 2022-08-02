@@ -32,6 +32,7 @@ public class TaskService {
         old.setNumHours(task.getNumHours());
         old.setPriority(task.getPriority());
         old.setState(task.getState());
+        
 
         taskRepository.save(old);
     }
