@@ -5,7 +5,6 @@ import com.uma.tfg.entities.User;
 import com.uma.tfg.repositories.MailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import payroll.UserNotFoundException;
 
 import javax.transaction.Transactional;
 import java.util.List;

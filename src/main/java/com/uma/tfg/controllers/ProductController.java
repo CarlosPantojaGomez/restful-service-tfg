@@ -7,6 +7,7 @@ import com.uma.tfg.services.ProductImageService;
 import com.uma.tfg.services.ProductService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -33,7 +34,7 @@ public class ProductController {
         }
         
         if (request.getMainImages() != null) {
-    		Set<ProductImage> images = null;
+    		Set<ProductImage> images = new HashSet<>();
         	
         	request.getMainImages().forEach((image)->{
             	ProductImage productimage = new ProductImage(image, prod.getId(), 2, null);

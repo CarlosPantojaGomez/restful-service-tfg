@@ -1,7 +1,6 @@
 package com.uma.tfg.controllers;
 
 import com.uma.tfg.entities.Bill;
-import com.uma.tfg.entities.Mail;
 import com.uma.tfg.services.BillService;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,6 @@
 package com.uma.tfg.services;
 
 import com.uma.tfg.entities.Product;
-import com.uma.tfg.entities.User;
 import com.uma.tfg.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

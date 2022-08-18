@@ -1,7 +1,15 @@
 package com.uma.tfg.repositories;
 
-import com.uma.tfg.entities.Product;
-import org.springframework.data.repository.CrudRepository;
+import com.uma.tfg.entities.ProductComment;
 
-public interface ProductCommentRepository extends CrudRepository<Product, Long> {
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+
+public interface ProductCommentRepository extends CrudRepository<ProductComment, Long> {
+	
+	@Query( value = "select * from product_comment where product = :id", nativeQuery = true)
+	List<ProductComment> getProductCommentsByProductId(@Param("id") Long id);
 }

@@ -1,7 +1,8 @@
 package com.uma.tfg.repositories;
 
-import com.uma.tfg.entities.Task;
+import com.uma.tfg.entities.TaskImage;
+
 import org.springframework.data.repository.CrudRepository;
 
-public interface TaskImageRepository extends CrudRepository<Task, Long> {
+public interface TaskImageRepository extends CrudRepository<TaskImage, Long> {
 }

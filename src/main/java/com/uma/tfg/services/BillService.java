@@ -1,7 +1,6 @@
 package com.uma.tfg.services;
 
 import com.uma.tfg.entities.Bill;
-import com.uma.tfg.entities.Mail;
 import com.uma.tfg.repositories.BillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
