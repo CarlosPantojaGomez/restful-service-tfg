@@ -47,6 +47,9 @@ public class User {
 
     @OneToMany(mappedBy = "creator")
     private Set<Task> createdTasks;
+    
+    @OneToMany(mappedBy = "cesta")
+    private Set<Product> cestProducts;
 
     @ManyToMany
     @JoinTable(
@@ -85,7 +88,7 @@ public class User {
         
         if(idGender != null) {
             Gender gen = new Gender();
-            gen.setId(idCountry);
+            gen.setId(idGender);
             gen.setGender(gender);
             this.gender = gen;
         }
@@ -281,6 +284,14 @@ public class User {
 
 	public void setGender(Gender gender) {
 		this.gender = gender;
+	}
+	
+	public Set<Product> getCestProducts() {
+		return cestProducts;
+	}
+
+	public void setCestProducts(Set<Product> products) {
+		this.cestProducts = products;
 	}
 
 	@Override

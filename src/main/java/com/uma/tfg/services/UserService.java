@@ -1,6 +1,8 @@
 package com.uma.tfg.services;
 
+import com.uma.tfg.entities.Product;
 import com.uma.tfg.entities.User;
+import com.uma.tfg.entities.UserRequest;
 import com.uma.tfg.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 /*import org.springframework.security.core.GrantedAuthority;
@@ -14,6 +16,7 @@ import payroll.UserNotFoundException;
 import javax.transaction.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -60,6 +63,16 @@ public class UserService {
 
     public void delete(Long id) throws Exception{
         userRepository.deleteById(id);
+    }
+    
+    public void addProductToCest(UserRequest request) throws Exception{
+    	
+    	Set<Product>cest = request.getUser().getCestProducts();
+    	cest.add(request.getProduct());
+    	
+    	request.getUser().setCestProducts(cest);
+    	
+        userRepository.save(request.getUser());
     }
 
 	/*@Override

@@ -1,6 +1,7 @@
 package com.uma.tfg.controllers;
 
 import com.uma.tfg.entities.User;
+import com.uma.tfg.entities.UserRequest;
 import com.uma.tfg.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,5 +70,9 @@ public class UserController {
     @DeleteMapping("/user/delete/{id}")
     public void deleteUser(@PathVariable Long id) throws Exception {
         userService.delete(id);
+    }
+    
+    public void addProductToCest(@PathVariable UserRequest request) throws Exception {
+        userService.addProductToCest(request);
     }
 }

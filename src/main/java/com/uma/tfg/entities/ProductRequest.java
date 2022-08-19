@@ -11,9 +11,7 @@ public class ProductRequest {
 
     private Product product;
 
-    
-
-	public ProductRequest() {}
+    public ProductRequest() {}
 
     public ProductRequest(String profileImage, Set<String> mainImages , Product product) {
         this.mainImages = mainImages;
