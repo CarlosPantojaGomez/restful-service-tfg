@@ -24,7 +24,8 @@ public class UserController {
     
     @GetMapping("/user/authenticate/{nickname}/{password}")
     public User AuthUser(@PathVariable String nickname, @PathVariable String password) throws Exception {
-        
+        System.out.println(nickname);
+        System.out.println(password);
     	return userService.getByNicknameAndPassword(nickname,password);
         
     }

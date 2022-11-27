@@ -2,6 +2,8 @@ package com.uma.tfg.entities;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -47,9 +49,6 @@ public class User {
 
     @OneToMany(mappedBy = "creator")
     private Set<Task> createdTasks;
-    
-    @OneToMany(mappedBy = "cesta")
-    private Set<Product> cestProducts;
 
     @ManyToMany
     @JoinTable(
@@ -57,7 +56,11 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "task_id"))
     private Set<Task> assignedTasks;
-
+    
+    @ManyToMany(mappedBy = "buyers")
+    @JsonIgnoreProperties(value= {"file" , "bills", "comments", "manuals", "profileImage", "images", "projects", "buyers"}, allowSetters=true)
+    private Set<Product> productsBought;
+    
     @ManyToOne
     @JoinColumn(name="user_place")
     private Country country;
@@ -285,13 +288,13 @@ public class User {
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
-	
-	public Set<Product> getCestProducts() {
-		return cestProducts;
+
+	public Set<Product> getBoughtProducts() {
+		return productsBought;
 	}
 
-	public void setCestProducts(Set<Product> products) {
-		this.cestProducts = products;
+	public void setBoughtProducts(Set<Product> productsBought) {
+		this.productsBought = productsBought;
 	}
 
 	@Override

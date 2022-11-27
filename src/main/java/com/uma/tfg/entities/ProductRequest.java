@@ -5,23 +5,45 @@ import java.util.Set;
 
 public class ProductRequest {
 
-	private String profileImage;
+	private ProductImage profileImage;
     
-    private Set<String> mainImages;
+    private Set<ProductImage> mainImages;
 
     private Product product;
 
-    public ProductRequest() {}
+    private File file;
+    
+    private Set<File> manuals;
 
-    public ProductRequest(String profileImage, Set<String> mainImages , Product product) {
+	public ProductRequest() {}
+
+    public ProductRequest(File file, ProductImage profileImage, Set<ProductImage> mainImages, Product product, Set<File> manuals) {
         this.mainImages = mainImages;
         
         this.product = product;
         
         this.profileImage = profileImage;
+        
+        this.file = file;
     }
-    
-    public Product getProduct() {
+
+	public ProductImage getProfileImage() {
+		return profileImage;
+	}
+
+	public void setProfileImage(ProductImage profileImage) {
+		this.profileImage = profileImage;
+	}
+
+	public Set<ProductImage> getMainImages() {
+		return mainImages;
+	}
+
+	public void setMainImages(Set<ProductImage> mainImages) {
+		this.mainImages = mainImages;
+	}
+
+	public Product getProduct() {
 		return product;
 	}
 
@@ -29,19 +51,19 @@ public class ProductRequest {
 		this.product = product;
 	}
 
-	public String getProfileImage() {
-		return profileImage;
+	public File getFile() {
+		return file;
 	}
 
-	public void setProfileImage(String profileImage) {
-		this.profileImage = profileImage;
+	public void setFile(File file) {
+		this.file = file;
 	}
 
-	public Set<String> getMainImages() {
-		return mainImages;
+	public Set<File> getManuals() {
+		return manuals;
 	}
 
-	public void setMainImages(Set<String> mainImages) {
-		this.mainImages = mainImages;
+	public void setManuals(Set<File> manuals) {
+		this.manuals = manuals;
 	}
 }

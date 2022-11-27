@@ -13,17 +13,22 @@ public class Product {
     private Long id;
     private String name;
     private String description;
+    private String features;
     private Double price;
     private Double rating;
 
+    @OneToOne
+    @JsonIgnoreProperties(value= {"id" , "product"}, allowSetters=true)
+    private File file;
+    
     @OneToMany(mappedBy = "user")
     private Set<Bill> bills;
 
     @OneToMany(mappedBy = "product")
     private Set<ProductComment> comments;
     
-    @OneToMany(mappedBy = "manual")
-    private Set<Manual> manuals;
+    @OneToMany(mappedBy = "product")
+    private Set<File> manuals;
 
     @OneToOne
     @JsonIgnoreProperties(value= {"id" , "product"}, allowSetters=true)
@@ -31,10 +36,20 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     private Set<ProductImage> images;
+    
+    @OneToMany(mappedBy = "product")
+    private Set<Project> projects;
+    
+    @ManyToMany
+    @JoinTable(
+            name = "user_buyer",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private Set<User> buyers;
 
     public Product() {}
 
-    public Product(String name, String description, Double price, Double rating, Long idProductImage) {
+    public Product(String name, String description, Double price, Double rating, Long idProductImage, Long idFile) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -43,6 +58,11 @@ public class Product {
             ProductImage productImage = new ProductImage();
             productImage.setId(idProductImage);
             this.profileImage = productImage;
+        }
+        if (idFile != null) {
+            File file = new File();
+            file.setId(idFile);
+            this.file = file;
         }
     }
 
@@ -118,11 +138,44 @@ public class Product {
         this.images = images;
     }
 
-	public Set<Manual> getManuals() {
+	public Set<File> getManuals() {
 		return manuals;
 	}
 
-	public void setManuals(Set<Manual> manuals) {
+	public void setManuals(Set<File> manuals) {
 		this.manuals = manuals;
 	}
+	
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
+	}
+
+	public String getFeatures() {
+		return features;
+	}
+
+	public void setFeatures(String features) {
+		this.features = features;
+	}
+
+	public Set<Project> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(Set<Project> projects) {
+		this.projects = projects;
+	}
+
+	public Set<User> getBuyers() {
+		return buyers;
+	}
+
+	public void setBuyers(Set<User> buyers) {
+		this.buyers = buyers;
+	}
+	
 }

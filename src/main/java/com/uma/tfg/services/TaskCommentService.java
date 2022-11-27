@@ -2,14 +2,18 @@ package com.uma.tfg.services;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.uma.tfg.entities.TaskComment;
 import com.uma.tfg.entities.User;
 import com.uma.tfg.repositories.TaskCommentRepository;
 
 import payroll.UserNotFoundException;
-
+@Service
+@Transactional
 public class TaskCommentService {
 	
 	@Autowired

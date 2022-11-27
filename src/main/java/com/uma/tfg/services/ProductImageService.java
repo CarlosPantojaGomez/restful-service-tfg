@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import payroll.UserNotFoundException;
 
 import javax.transaction.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,7 +31,14 @@ public class ProductImageService {
     }
     
     public List<String> getTop(){
-        return (List<String>) productImageRepository.findImageTop3Products();
+    	List<ProductImage> foo = (List<ProductImage>) productImageRepository.findImageTop3Products();
+
+    	List<String> images = new ArrayList<String>();
+		
+    	foo.forEach((image)->{
+        	images.add(image.getUrl());
+    	});
+        return images;
     }
     
     public void delete(Long id) throws Exception {

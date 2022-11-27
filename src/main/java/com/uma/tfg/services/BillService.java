@@ -22,4 +22,8 @@ public class BillService {
     public List<Bill> getAll() {
         return (List<Bill>) billRepository.findAll();
     }
+    
+    public void delete(Long id) throws Exception {
+    	billRepository.deleteById(id);
+    }
 }
