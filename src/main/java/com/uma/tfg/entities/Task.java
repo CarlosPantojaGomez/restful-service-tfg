@@ -154,4 +154,13 @@ public class Task {
     public void setAssignedUsers(Set<User> assignedUsers) {
         this.assignedUsers = assignedUsers;
     }
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+    
 }

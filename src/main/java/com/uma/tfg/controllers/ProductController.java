@@ -32,17 +32,18 @@ public class ProductController {
         Product prod = productService.createProduct(request.getProduct());
         
         if (request.getProfileImage() != null) {
+    		request.getProfileImage().setProduct(prod);
         	ProductImage profileImage = productImageService.createProductImage(request.getProfileImage());
         	
         	prod.setProfileImage(profileImage);
         	
-        	productService.updateProduct(prod);
         }
         
         if (request.getMainImages() != null) {
     		Set<ProductImage> images = new HashSet<>();
         	
         	request.getMainImages().forEach((image)->{
+        		image.setProduct(prod);
             	ProductImage productimage = productImageService.createProductImage(image);
             	System.out.println(productimage);
             	images.add(productimage);
@@ -51,7 +52,6 @@ public class ProductController {
         	
         	prod.setImages(images);
         	
-        	productService.updateProduct(prod);
         }
         
         if (request.getFile() != null) {
@@ -64,8 +64,9 @@ public class ProductController {
         	
         	prod.setFile(file);
         	
-        	productService.updateProduct(prod);
         }
+        
+    	productService.updateProduct(prod);
         
     }
     
@@ -83,16 +84,21 @@ public class ProductController {
         
         
     	if (request.getProfileImage() != null) {
+    		request.getProfileImage().setProduct(prod);
         	ProductImage profileImage = productImageService.createProductImage(request.getProfileImage());
         	
         	prod.setProfileImage(profileImage);
         	
+        } else {
+
+        	prod.setProfileImage(null);
         }
         
         if (request.getMainImages() != null) {
     		Set<ProductImage> images = new HashSet<>();
         	
         	request.getMainImages().forEach((image)->{
+        		image.setProduct(prod);
             	ProductImage productimage = productImageService.createProductImage(image);
             	System.out.println(productimage);
             	images.add(productimage);
@@ -101,6 +107,9 @@ public class ProductController {
         	
         	prod.setImages(images);
         	
+        } else {
+
+        	prod.setImages(null);
         }
         
         if (request.getFile() != null) {
@@ -113,6 +122,9 @@ public class ProductController {
         	
         	prod.setFile(file);
         	
+        } else {
+
+        	prod.setFile(null);
         }
     	productService.updateProduct(prod);
     }

@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Project {
 
@@ -20,9 +22,11 @@ public class Project {
     private Double priority;
     
     @ManyToMany(mappedBy = "project")
+    @JsonIgnoreProperties(value= {"comments", "images", "creator", "assignedUsers", "project"}, allowSetters=true)
     private Set<Task> tasks;
     
     @ManyToOne
+    @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects"}, allowSetters=true)
     private Product product;
 
 	public Long getId() {

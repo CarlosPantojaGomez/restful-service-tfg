@@ -35,6 +35,7 @@ public class Product {
     private ProductImage profileImage;
 
     @OneToMany(mappedBy = "product")
+    @JsonIgnoreProperties(value= {"product"}, allowSetters=true)
     private Set<ProductImage> images;
     
     @OneToMany(mappedBy = "product")

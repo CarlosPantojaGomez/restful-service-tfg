@@ -1,5 +1,6 @@
 package com.uma.tfg.services;
 
+import com.uma.tfg.entities.Project;
 import com.uma.tfg.entities.Task;
 import com.uma.tfg.entities.User;
 import com.uma.tfg.repositories.TaskRepository;
@@ -47,6 +48,10 @@ public class TaskService {
 
     public List<Task> getTasksAssignedUser(User user) {
         return (List<Task>) taskRepository.findByAssignedUsers(user);
+    }
+    
+    public List<Task> getTasksByProject(Project project) {
+        return (List<Task>) taskRepository.findByProject(project);
     }
 
     public void delete(Long id) throws Exception{

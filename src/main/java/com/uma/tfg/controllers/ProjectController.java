@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uma.tfg.entities.Product;
 import com.uma.tfg.entities.Project;
+import com.uma.tfg.services.ProductService;
 import com.uma.tfg.services.ProjectService;
 
 @RestController
@@ -20,12 +22,21 @@ import com.uma.tfg.services.ProjectService;
 public class ProjectController {
 	
 	private final ProjectService projectService;
+	private final ProductService productService;
     
-    public ProjectController(ProjectService projectService) { this.projectService = projectService;}
+    public ProjectController(ProjectService projectService, ProductService productService) { 
+    	this.projectService = projectService;
+    	this.productService = productService;
+	}
 
     @PostMapping("/project")
     public void createProject(@RequestBody Project request) throws Exception {
-
+    	if(request.getProduct() != null) {
+			if(request.getProduct().getId() != null) {
+				Product auxProd = productService.getProduct(request.getProduct().getId());
+	    		request.setProduct(auxProd);
+	    	}
+    	}
     	projectService.createProject(request);
     }
     
