@@ -19,7 +19,7 @@ public class Manual {
     private String name;
 
     @OneToOne
-    @JsonIgnoreProperties(value= {"id" , "product"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"id" , "product", "manual"}, allowSetters=true)
     private File file;
     
     @ManyToOne
@@ -48,4 +48,13 @@ public class Manual {
 	public void setFile(File file) {
 		this.file = file;
 	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	
 }

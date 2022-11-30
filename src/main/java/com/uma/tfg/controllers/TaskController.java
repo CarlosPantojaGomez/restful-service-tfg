@@ -38,7 +38,12 @@ public class TaskController {
     public List<Task> all() {
         return taskService.getAll();
     }
-
+    
+    @GetMapping("/task/{id}")
+    public Task getTask(@PathVariable Long id) throws Exception {
+        return taskService.getTask(id);
+    }
+    
     @GetMapping("/task/assignedUser")
     public List<Task> getTasksAssignedUser(@RequestBody User user) {
         return taskService.getTasksAssignedUser(user);

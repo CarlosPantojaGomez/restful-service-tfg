@@ -1,5 +1,6 @@
 package com.uma.tfg.services;
 
+import com.uma.tfg.entities.Product;
 import com.uma.tfg.entities.ProductImage;
 import com.uma.tfg.repositories.ProductImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,11 @@ public class ProductImageService {
     public ProductImage getProductImage(Long id) throws Exception{
         return productImageRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
-
+    
+    public List<ProductImage> findByImageTypeAndProduct(Integer type, Product product){
+        return (List<ProductImage>) productImageRepository.findByImageTypeAndProduct(type, product);
+    }
+    
     public List<ProductImage> getAll(){
         return (List<ProductImage>) productImageRepository.findAll();
     }

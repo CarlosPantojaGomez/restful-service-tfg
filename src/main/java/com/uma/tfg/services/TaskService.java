@@ -46,6 +46,10 @@ public class TaskService {
         return (List<Task>) taskRepository.findAll();
     }
 
+    public Task getTask(Long id) throws Exception{
+        return taskRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    }
+    
     public List<Task> getTasksAssignedUser(User user) {
         return (List<Task>) taskRepository.findByAssignedUsers(user);
     }

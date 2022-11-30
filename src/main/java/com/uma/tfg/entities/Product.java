@@ -28,7 +28,8 @@ public class Product {
     private Set<ProductComment> comments;
     
     @OneToMany(mappedBy = "product")
-    private Set<File> manuals;
+    @JsonIgnoreProperties(value= {"product"}, allowSetters=true)
+    private Set<Manual> manuals;
 
     @OneToOne
     @JsonIgnoreProperties(value= {"id" , "product"}, allowSetters=true)
@@ -139,11 +140,11 @@ public class Product {
         this.images = images;
     }
 
-	public Set<File> getManuals() {
+	public Set<Manual> getManuals() {
 		return manuals;
 	}
 
-	public void setManuals(Set<File> manuals) {
+	public void setManuals(Set<Manual> manuals) {
 		this.manuals = manuals;
 	}
 	

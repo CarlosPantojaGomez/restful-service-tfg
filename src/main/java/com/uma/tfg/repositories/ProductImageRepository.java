@@ -1,5 +1,6 @@
 package com.uma.tfg.repositories;  
 
+import com.uma.tfg.entities.Product;
 import com.uma.tfg.entities.ProductImage;
 
 import java.util.List;
@@ -11,5 +12,7 @@ public interface ProductImageRepository extends CrudRepository<ProductImage, Lon
 
 	@Query( value = "select * from product p join product_image pi on p.profile_image_id = pi.id ORDER BY rating DESC", nativeQuery = true)
 	List<ProductImage> findImageTop3Products();
+	
+	List<ProductImage> findByImageTypeAndProduct(Integer imageType, Product product);
 	
 }

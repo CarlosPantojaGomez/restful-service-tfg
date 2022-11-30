@@ -30,7 +30,7 @@ public class File  {
 	
 	@ManyToOne
     @JsonIgnoreProperties(value= {"product"}, allowSetters=true)
-    private Product manual;
+    private Manual manual;
 	
 	public File() {
 	}
@@ -79,6 +79,14 @@ public class File  {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public Manual getManual() {
+		return manual;
+	}
+
+	public void setManual(Manual manual) {
+		this.manual = manual;
 	}
 	  
 	  
