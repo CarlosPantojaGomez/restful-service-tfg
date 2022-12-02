@@ -14,6 +14,9 @@ public class Mail {
     private LocalDate creationDate;
     private String subject;
     private String text;
+    private String writerName;
+    private String receiverName;
+    private boolean saw;
 
     @ManyToOne
     @JsonIgnoreProperties(value= {"writtenMails"}, allowSetters=true)
@@ -92,4 +95,28 @@ public class Mail {
     public void setReceiver(User receiver) {
         this.receiver = receiver;
     }
+
+	public String getWriterName() {
+		return writerName;
+	}
+
+	public void setWriterName(String writerName) {
+		this.writerName = writerName;
+	}
+
+	public String getReceiverName() {
+		return receiverName;
+	}
+
+	public void setReceiverName(String receiverName) {
+		this.receiverName = receiverName;
+	}
+
+	public boolean isSaw() {
+		return saw;
+	}
+
+	public void setSaw(boolean saw) {
+		this.saw = saw;
+	}
 }

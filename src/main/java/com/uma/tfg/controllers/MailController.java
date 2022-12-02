@@ -3,6 +3,7 @@ package com.uma.tfg.controllers;
 import com.uma.tfg.entities.Mail;
 import com.uma.tfg.entities.User;
 import com.uma.tfg.services.MailService;
+import com.uma.tfg.services.UserService;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -16,15 +17,22 @@ public class MailController {
 	
 	private JavaMailSender javaMailSender;
     private final MailService mailService;
+    private final UserService userService;
 
-    public MailController(MailService mailService, JavaMailSender javaMailSender) { 
+    public MailController(MailService mailService, JavaMailSender javaMailSender, UserService userService) { 
     	this.mailService = mailService;
     	this.javaMailSender = javaMailSender;
+    	this.userService = userService;
     }
 
     @PostMapping("/mail")
     public void createMail(@RequestBody Mail mail) throws Exception {
         mailService.createMail(mail);
+    }
+    
+    @GetMapping("/mail/{id}")
+    public Mail getMail(@PathVariable Long id) throws Exception {
+        return mailService.getMail(id);
     }
 
     @GetMapping("/mails")
@@ -32,9 +40,10 @@ public class MailController {
         return mailService.getAll();
     }
 
-    @GetMapping("/mails_receiver")
-    public List<Mail> getMailsReceiver(@RequestBody User user) throws Exception {
-        return (List<Mail>) mailService.getMailsReceiver(user);
+    @GetMapping("/mails_receiver/{userId}")
+    public List<Mail> getMailsReceiver(@PathVariable Long userId) throws Exception {
+    	User receiver = userService.getUser(userId);
+        return (List<Mail>) mailService.getMailsReceiver(receiver);
     }
 
     @GetMapping("/mails_writer")

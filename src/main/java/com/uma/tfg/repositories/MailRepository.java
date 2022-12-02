@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MailRepository extends CrudRepository<Mail, Long> {
 
-    public List<Mail> findByReceiver(User user);
+    public List<Mail> findByReceiverOrderByIdDesc(User user);
 
     public List<Mail> findByWriter(User user);
 }

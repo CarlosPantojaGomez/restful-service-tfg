@@ -48,6 +48,11 @@ public class UserService {
     public List<User> getByEmail(String email){
         return (List<User>) userRepository.findByEmailAndFlagActive(email,1);
     }
+    
+    public List<User> getcoincidencesByNickname(String input){
+    	System.out.println(input);
+        return (List<User>) userRepository.getCoincidencesByNickname(input);
+    }
 
     public List<User> getByUserType(Integer type){
         return (List<User>) userRepository.findByUserTypeAndFlagActive(type,1);

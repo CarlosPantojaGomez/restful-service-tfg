@@ -42,9 +42,11 @@ public class User {
     private Set<ProductComment> productsComments;
 
     @OneToMany(mappedBy = "receiver")
+    @JsonIgnoreProperties(value= {"writer" , "receiver"}, allowSetters=true)
     private Set<Mail> receivedMails;
 
     @OneToMany(mappedBy = "writer")
+    @JsonIgnoreProperties(value= {"writer" , "receiver"}, allowSetters=true)
     private Set<Mail> writtenMails;
 
     @OneToMany(mappedBy = "creator")

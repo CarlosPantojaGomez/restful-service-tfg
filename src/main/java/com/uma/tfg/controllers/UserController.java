@@ -51,6 +51,11 @@ public class UserController {
     public List<User> getUserByEmail(@PathVariable String email) throws Exception {
         return userService.getByEmail(email);
     }
+    
+    @GetMapping("/users/findByNickname/{input}")
+    public List<User> getCoincidencesbynickname(@PathVariable String input) throws Exception {
+        return userService.getcoincidencesByNickname(input);
+    }
 
     @GetMapping("/users/findType/{type}")
     public List<User> getUserByUserType(@PathVariable String type) throws Exception {
