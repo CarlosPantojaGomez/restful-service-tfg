@@ -59,10 +59,27 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "task_id"))
     private Set<Task> assignedTasks;
     
+    @ManyToMany
+    @JoinTable(
+            name = "project_assigned",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id"))
+    private Set<Project> projectsAssigned;
+    
+    @OneToMany(mappedBy = "creator")
+    @JsonIgnoreProperties(value= {"writer" , "receiver"}, allowSetters=true)
+    private Set<Project> projectsCreated;
+    
     @ManyToMany(mappedBy = "buyers")
     @JsonIgnoreProperties(value= {"file" , "bills", "comments", "manuals", "profileImage", "images", "projects", "buyers"}, allowSetters=true)
     private Set<Product> productsBought;
     
+    @ManyToMany(mappedBy = "assignedUsers")
+    @JsonIgnoreProperties(value= {"assignedUsers" , "product", "task", "project"}, allowSetters=true)
+    private Set<Activity> activitiesRelated;
+    
+    @OneToMany(mappedBy = "creator")
+    private Set<Activity> activitiesCreated;
     @ManyToOne
     @JoinColumn(name="user_place")
     private Country country;

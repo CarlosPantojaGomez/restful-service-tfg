@@ -1,7 +1,9 @@
 package com.uma.tfg.services;
 
+import com.uma.tfg.entities.Activity;
 import com.uma.tfg.entities.Mail;
 import com.uma.tfg.entities.User;
+import com.uma.tfg.repositories.ActivityRepository;
 import com.uma.tfg.repositories.MailRepository;
 import com.uma.tfg.repositories.UserRepository;
 
@@ -11,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.time.*;
 
 @Service
@@ -22,6 +27,8 @@ public class MailService {
     private MailRepository mailRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ActivityRepository activityRepository;
 
     public void createMail(Mail mail) {
     	if(mail.getReceiverName() != null && mail.getWriterName() != null) {
@@ -36,6 +43,19 @@ public class MailService {
         		mail.setCreationDate(LocalDate.now());
 
                 mailRepository.save(mail);
+                
+                Activity act = new Activity();
+                act.setAction("creado");
+                act.setActivityDate(LocalDate.now());
+                act.setMail(mail);
+                act.setCreator(writer);
+                
+
+        		Set<User> users = new HashSet<>();
+        		users.add(receiver);
+                act.setAssignedUsers(users);
+                
+                activityRepository.save(act);
     		}
     	}
     }

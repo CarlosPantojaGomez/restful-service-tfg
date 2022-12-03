@@ -40,6 +40,10 @@ public class Product {
     private Set<ProductImage> images;
     
     @OneToMany(mappedBy = "product")
+    @JsonIgnoreProperties(value= {"assignedUsers" , "product", "task", "project"}, allowSetters=true)
+    private Set<Activity> activities;
+    
+    @OneToMany(mappedBy = "product")
     private Set<Project> projects;
     
     @ManyToMany

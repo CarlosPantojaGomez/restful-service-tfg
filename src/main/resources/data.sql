@@ -1,1 +1,1 @@
-//INSERT INTO USER (id, flag_active, name, nickname, password, user_type) VALUES (1, 1, 'admin', 'admin', 'admin', 4);
+//INSERT INTO USER (id, flag_active, name, nickname, password, user_type, email) VALUES (1, 1, 'admin', 'admin', 'admin', 4, 'admin@gmail.com');

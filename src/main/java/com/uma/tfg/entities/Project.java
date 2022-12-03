@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -28,6 +29,18 @@ public class Project {
     @ManyToOne
     @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects"}, allowSetters=true)
     private Product product;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects"}, allowSetters=true)
+    private User creator;
+    
+    @ManyToMany(mappedBy = "projectsAssigned")
+    @JsonIgnoreProperties(value= {"comments", "images", "creator", "assignedUsers", "project"}, allowSetters=true)
+    private Set<User> usersRelated;
+    
+    @OneToMany(mappedBy = "product")
+    @JsonIgnoreProperties(value= {"assignedUsers" , "product", "task", "project"}, allowSetters=true)
+    private Set<Activity> activities;
 
 	public Long getId() {
 		return id;
@@ -76,7 +89,28 @@ public class Project {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-    
-    
-	
+
+	public User getCreator() {
+		return creator;
+	}
+
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+
+	public Set<User> getUsersRelated() {
+		return usersRelated;
+	}
+
+	public void setUsersRelated(Set<User> usersRelated) {
+		this.usersRelated = usersRelated;
+	}
+
+	public Set<Activity> getActivities() {
+		return activities;
+	}
+
+	public void setActivities(Set<Activity> activities) {
+		this.activities = activities;
+	}	
 }

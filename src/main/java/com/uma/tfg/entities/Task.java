@@ -36,6 +36,10 @@ public class Task {
     @JsonIgnoreProperties(value= {"createdTasks" , "assignedTasks", "receivedMails", "writtenMails", "bills", "tasksComments", "productsComments"}, allowSetters=true)
     private Set<User> assignedUsers;
     
+    @OneToMany(mappedBy = "product")
+    @JsonIgnoreProperties(value= {"assignedUsers" , "product", "task", "project"}, allowSetters=true)
+    private Set<Activity> activities;
+    
     @ManyToOne
     @JsonIgnoreProperties(value= {"tasks"}, allowSetters=true)
     private Project project;

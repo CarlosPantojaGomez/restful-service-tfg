@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 public class Mail {
@@ -25,6 +26,10 @@ public class Mail {
     @ManyToOne
     @JsonIgnoreProperties(value= {"receivedMails"}, allowSetters=true)
     private User receiver;
+    
+    @OneToMany(mappedBy = "product")
+    @JsonIgnoreProperties(value= {"assignedUsers" , "product", "task", "project"}, allowSetters=true)
+    private Set<Activity> activities;
 
     public Mail() {}
 
