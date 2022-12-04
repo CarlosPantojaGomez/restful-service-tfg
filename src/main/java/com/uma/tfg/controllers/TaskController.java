@@ -33,6 +33,11 @@ public class TaskController {
     public void updateTask(@RequestBody Task task) throws Exception {
         taskService.updateTask(task);
     }
+    
+    @PutMapping("/taskUpdatePriorityState")
+    public void updateTaskUpdatePriorityState(@RequestBody Task task) throws Exception {
+        taskService.updateTaskUpdatePriorityState(task);
+    }
 
     @GetMapping("/tasks")
     public List<Task> all() {

@@ -2,10 +2,12 @@ package com.uma.tfg.entities;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -19,6 +21,8 @@ public class Project {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String name;
+    @Lob
+    @Column
     private String description;
     private Double priority;
     

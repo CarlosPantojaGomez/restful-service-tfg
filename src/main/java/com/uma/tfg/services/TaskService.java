@@ -37,6 +37,17 @@ public class TaskService {
         old.setNumHours(task.getNumHours());
         old.setPriority(task.getPriority());
         old.setState(task.getState());
+        old.setName(task.getName());
+        
+
+        taskRepository.save(old);
+    }
+    
+    public void updateTaskUpdatePriorityState(Task task) {
+        Task old = taskRepository.findById(task.getId()).orElseThrow(() -> new UserNotFoundException(task.getId()));
+        
+        old.setPriority(task.getPriority());
+        old.setState(task.getState());
         
 
         taskRepository.save(old);
