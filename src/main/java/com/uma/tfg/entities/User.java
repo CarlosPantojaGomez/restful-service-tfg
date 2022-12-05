@@ -36,6 +36,7 @@ public class User {
     private Set<Bill> bills;
 
     @OneToMany(mappedBy = "creator")
+    @JsonIgnoreProperties(value= {"creator" , "task"}, allowSetters=true)
     private Set<TaskComment> tasksComments;
 
     @OneToMany(mappedBy = "creator")
@@ -50,20 +51,14 @@ public class User {
     private Set<Mail> writtenMails;
 
     @OneToMany(mappedBy = "creator")
+    @JsonIgnoreProperties(value= {"comments" , "images", "creator", "assignedUsers", "activities", "project"}, allowSetters=true)
     private Set<Task> createdTasks;
 
-    @ManyToMany
-    @JoinTable(
-            name = "task_assigned",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "task_id"))
+    @ManyToMany(mappedBy = "assignedUsers")
     private Set<Task> assignedTasks;
-    
-    @ManyToMany
-    @JoinTable(
-            name = "project_assigned",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "project_id"))
+
+    @ManyToMany(mappedBy = "usersRelated")
+    @JsonIgnoreProperties(value= {"comments", "images", "creator", "assignedUsers", "project"}, allowSetters=true)
     private Set<Project> projectsAssigned;
     
     @OneToMany(mappedBy = "creator")

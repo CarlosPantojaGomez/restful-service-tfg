@@ -27,7 +27,7 @@ public class Mail {
     @JsonIgnoreProperties(value= {"receivedMails"}, allowSetters=true)
     private User receiver;
     
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "mail")
     @JsonIgnoreProperties(value= {"assignedUsers" , "product", "task", "project"}, allowSetters=true)
     private Set<Activity> activities;
 

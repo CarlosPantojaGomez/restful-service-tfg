@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -27,7 +29,7 @@ public class Project {
     private Double priority;
     
     @ManyToMany(mappedBy = "project")
-    @JsonIgnoreProperties(value= {"comments", "images", "creator", "assignedUsers", "project"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"comments", "images", "creator", "assignedUsers", "project", "activities"}, allowSetters=true)
     private Set<Task> tasks;
     
     @ManyToOne
@@ -38,8 +40,13 @@ public class Project {
     @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects"}, allowSetters=true)
     private User creator;
     
-    @ManyToMany(mappedBy = "projectsAssigned")
-    @JsonIgnoreProperties(value= {"comments", "images", "creator", "assignedUsers", "project"}, allowSetters=true)
+
+    @ManyToMany
+    @JoinTable(
+            name = "project_assigned",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JsonIgnoreProperties(value= {"tasksComments"}, allowSetters=true)
     private Set<User> usersRelated;
     
     @OneToMany(mappedBy = "product")

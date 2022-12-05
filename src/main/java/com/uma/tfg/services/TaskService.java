@@ -11,7 +11,10 @@ import org.springframework.stereotype.Service;
 import payroll.UserNotFoundException;
 
 import javax.transaction.Transactional;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -20,9 +23,12 @@ public class TaskService {
 
     @Autowired
     private TaskRepository taskRepository;
+    @Autowired
     private UserRepository userRepository;
 
     public void createTask(Task task) {
+		User creator = userRepository.findByNicknameAndFlagActive(task.getCreator().getNickname(), 1);
+		task.setCreator(creator);
         taskRepository.save(task);
     }
 
@@ -43,6 +49,30 @@ public class TaskService {
         taskRepository.save(old);
     }
     
+    public void updateTaskUsers(Task task) {
+        Task old = taskRepository.findById(task.getId()).orElseThrow(() -> new UserNotFoundException(task.getId()));
+        
+        if(task.getAssignedUsers() != null) {
+
+    		Set<User> usersRelated = new HashSet<>();
+    		task.getAssignedUsers().forEach((user)->{
+    			if(user.getId() != null) {
+					Optional<User> userRelated;
+					try {
+						userRelated = userRepository.findById(user.getId());
+						usersRelated.add(userRelated.get());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    			}
+        	});
+    		
+    		old.setAssignedUsers(usersRelated);
+            taskRepository.save(old);
+    	}
+    }
+
     public void updateTaskUpdatePriorityState(Task task) {
         Task old = taskRepository.findById(task.getId()).orElseThrow(() -> new UserNotFoundException(task.getId()));
         

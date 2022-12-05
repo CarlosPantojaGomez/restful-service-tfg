@@ -15,6 +15,7 @@ import com.uma.tfg.entities.Activity;
 import com.uma.tfg.entities.Project;
 import com.uma.tfg.entities.User;
 import com.uma.tfg.repositories.ActivityRepository;
+import com.uma.tfg.repositories.ProductRepository;
 import com.uma.tfg.repositories.ProjectRepository;
 import com.uma.tfg.repositories.UserRepository;
 
@@ -29,6 +30,8 @@ public class ProjectService {
     private UserRepository userRepository;
     @Autowired
     private ActivityRepository activityRepository;
+    @Autowired
+    private ProductRepository productRepository;
 	
 	public Project createProject(Project project) {
 		User creator = userRepository.findByNicknameAndFlagActive(project.getCreator().getNickname(), 1);
@@ -57,7 +60,24 @@ public class ProjectService {
     }
     
     public void updateProject(Project project) {
-    	projectRepository.save(project);
+    	Optional<Project> proyecto = projectRepository.findById(project.getId());
+    	
+    	proyecto.get().setDescription(project.getDescription());
+    	proyecto.get().setName(project.getName());
+    	proyecto.get().setPriority(project.getPriority());
+
+		Set<User> users = new HashSet<>();
+		
+		project.getUsersRelated().forEach((user)->{
+			System.out.println(user.getId());
+			Optional<User> userRelated = userRepository.findById(user.getId());
+			users.add(userRelated.get());
+    	});
+		System.out.println(users.size());
+		
+		proyecto.get().setUsersRelated(users);
+		
+    	projectRepository.save(proyecto.get());
     }
 
     public List<Project> getAll() {

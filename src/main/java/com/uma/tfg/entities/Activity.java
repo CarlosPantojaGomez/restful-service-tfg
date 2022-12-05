@@ -40,16 +40,17 @@ public class Activity {
     private Product product;
 	
 	@ManyToOne
+    @JsonIgnoreProperties(value= {"comments", "images", "creator", "assignedUsers", "activities"}, allowSetters=true)
     @JoinColumn(name="task_related")
     private Task task;
 	
 	@ManyToOne
-    @JsonIgnoreProperties(value= {"tasks"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"tasks", "product", "creator", "usersRelated", "activities"}, allowSetters=true)
     @JoinColumn(name="project_related")
     private Project project;
 	
 	@ManyToOne
-    @JsonIgnoreProperties(value= {"writer" , "receiver"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"writer" , "receiver", "activities"}, allowSetters=true)
     @JoinColumn(name="mail_related")
     private Mail mail;
 	

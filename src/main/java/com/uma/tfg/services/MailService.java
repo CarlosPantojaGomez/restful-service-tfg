@@ -45,7 +45,7 @@ public class MailService {
                 mailRepository.save(mail);
                 
                 Activity act = new Activity();
-                act.setAction("creado");
+                act.setAction("enviado");
                 act.setActivityDate(LocalDate.now());
                 act.setMail(mail);
                 act.setCreator(writer);

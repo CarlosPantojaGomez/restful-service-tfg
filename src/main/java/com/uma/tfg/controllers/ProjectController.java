@@ -42,7 +42,7 @@ public class ProjectController {
     
     @PutMapping("/project")
     public void updateProject(@RequestBody Project request) throws Exception {
-    	projectService.createProject(request);
+    	projectService.updateProject(request);
     }
     
     @GetMapping("/project/{id}")

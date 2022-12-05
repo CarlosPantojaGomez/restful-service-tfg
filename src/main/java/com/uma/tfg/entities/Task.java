@@ -14,14 +14,17 @@ public class Task {
     private Long id;
     private String name;
     private LocalDate creationDate;
+    private LocalDate startDate;
     private LocalDate endDate;
+    @Lob
+    @Column
     private String description;
     private Integer priority;
     private Integer state;
     private Integer numHours;
 
     @OneToMany(mappedBy = "task")
-    @JsonIgnoreProperties(value= {"creator" , "task"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"task"}, allowSetters=true)
     private Set<TaskComment> comments;
 
     @OneToMany(mappedBy = "task")
@@ -31,8 +34,12 @@ public class Task {
     @ManyToOne
     @JsonIgnoreProperties(value= {"createdTasks" , "assignedTasks", "receivedMails", "writtenMails", "bills", "tasksComments", "productsComments"}, allowSetters=true)
     private User creator;
-
-    @ManyToMany(mappedBy = "assignedTasks")
+    
+    @ManyToMany
+    @JoinTable(
+            name = "task_assigned",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     @JsonIgnoreProperties(value= {"createdTasks" , "assignedTasks", "receivedMails", "writtenMails", "bills", "tasksComments", "productsComments"}, allowSetters=true)
     private Set<User> assignedUsers;
     
@@ -166,5 +173,20 @@ public class Task {
 	public void setProject(Project project) {
 		this.project = project;
 	}
-    
+
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+
+	public Set<Activity> getActivities() {
+		return activities;
+	}
+
+	public void setActivities(Set<Activity> activities) {
+		this.activities = activities;
+	}  
 }
