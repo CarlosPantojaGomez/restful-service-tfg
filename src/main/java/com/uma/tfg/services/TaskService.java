@@ -1,8 +1,10 @@
 package com.uma.tfg.services;
 
+import com.uma.tfg.entities.Activity;
 import com.uma.tfg.entities.Project;
 import com.uma.tfg.entities.Task;
 import com.uma.tfg.entities.User;
+import com.uma.tfg.repositories.ActivityRepository;
 import com.uma.tfg.repositories.TaskRepository;
 import com.uma.tfg.repositories.UserRepository;
 
@@ -12,6 +14,7 @@ import payroll.UserNotFoundException;
 
 import javax.transaction.Transactional;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +28,8 @@ public class TaskService {
     private TaskRepository taskRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ActivityRepository activityRepository;
 
     public void createTask(Task task) {
 		User creator = userRepository.findByNicknameAndFlagActive(task.getCreator().getNickname(), 1);
@@ -34,6 +39,7 @@ public class TaskService {
 
     public void updateTask(Task task) {
         Task old = taskRepository.findById(task.getId()).orElseThrow(() -> new UserNotFoundException(task.getId()));
+        
 
         old.setAssignedUsers(task.getAssignedUsers());
         old.setComments(task.getComments());
@@ -44,9 +50,30 @@ public class TaskService {
         old.setPriority(task.getPriority());
         old.setState(task.getState());
         old.setName(task.getName());
-        
 
         taskRepository.save(old);
+    	
+    	Activity act = new Activity();
+
+		User creator = userRepository.findByNicknameAndFlagActive(task.getCreator().getNickname(), 1);
+		
+        act.setAction("modificado");
+        act.setActivityDate(LocalDate.now());
+        act.setTask(old);
+        act.setCreator(creator);
+
+        Set<User> users = new HashSet<>();
+		if(old.getAssignedUsers() != null) {
+			users.addAll(old.getAssignedUsers());
+			
+		}
+		if(old.getProject().getUsersRelated() != null) {
+			users.addAll(old.getProject().getUsersRelated());
+		}
+		
+        act.setAssignedUsers(users);
+        
+        activityRepository.save(act);
     }
     
     public void updateTaskUsers(Task task) {
@@ -70,6 +97,26 @@ public class TaskService {
     		
     		old.setAssignedUsers(usersRelated);
             taskRepository.save(old);
+        	
+        	Activity act = new Activity();
+            act.setAction("modificado");
+            act.setActivityDate(LocalDate.now());
+            act.setTask(old);
+    		User creator = userRepository.findByNicknameAndFlagActive(task.getCreator().getNickname(), 1);
+            act.setCreator(creator);
+
+            Set<User> users = new HashSet<>();
+    		if(old.getAssignedUsers() != null) {
+    			users.addAll(old.getAssignedUsers());
+    			
+    		}
+    		if(old.getProject().getUsersRelated() != null) {
+    			users.addAll(old.getProject().getUsersRelated());
+    		}
+    		
+            act.setAssignedUsers(users);
+            
+            activityRepository.save(act);
     	}
     }
 
@@ -81,6 +128,26 @@ public class TaskService {
         
 
         taskRepository.save(old);
+    	
+    	Activity act = new Activity();
+        act.setAction("modificado");
+        act.setActivityDate(LocalDate.now());
+        act.setTask(old);
+		User creator = userRepository.findByNicknameAndFlagActive(task.getCreator().getNickname(), 1);
+        act.setCreator(creator);
+
+        Set<User> users = new HashSet<>();
+		if(old.getAssignedUsers() != null) {
+			users.addAll(old.getAssignedUsers());
+			
+		}
+		if(old.getProject().getUsersRelated() != null) {
+			users.addAll(old.getProject().getUsersRelated());
+		}
+		
+        act.setAssignedUsers(users);
+        
+        activityRepository.save(act);
     }
 
     public List<Task> getAll(){

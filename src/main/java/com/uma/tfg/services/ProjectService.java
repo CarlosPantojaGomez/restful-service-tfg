@@ -78,6 +78,16 @@ public class ProjectService {
 		proyecto.get().setUsersRelated(users);
 		
     	projectRepository.save(proyecto.get());
+    	
+    	Activity act = new Activity();
+        act.setAction("modificado");
+        act.setActivityDate(LocalDate.now());
+        act.setProject(project);
+        act.setCreator(proyecto.get().getCreator());
+
+        act.setAssignedUsers(proyecto.get().getUsersRelated());
+        
+        activityRepository.save(act);
     }
 
     public List<Project> getAll() {

@@ -2,6 +2,7 @@ package com.uma.tfg.controllers;
 
 import com.uma.tfg.entities.User;
 import com.uma.tfg.entities.UserRequest;
+import com.uma.tfg.entities.UsersForTaskRequest;
 import com.uma.tfg.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,6 +56,11 @@ public class UserController {
     @GetMapping("/users/findByNickname/{input}")
     public List<User> getCoincidencesbynickname(@PathVariable String input) throws Exception {
         return userService.getcoincidencesByNickname(input);
+    }
+    
+    @GetMapping("/users/findByNicknameForTask/{input}/{projectId}")
+    public List<User> getCoincidencesbynickname(@PathVariable String input, @PathVariable String projectId) throws Exception {
+        return userService.getCoincidencesForTaskByNickname(input, Long.parseLong(projectId));
     }
 
     @GetMapping("/users/findType/{type}")

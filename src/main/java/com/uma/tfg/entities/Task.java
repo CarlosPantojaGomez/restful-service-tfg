@@ -24,7 +24,7 @@ public class Task {
     private Integer numHours;
 
     @OneToMany(mappedBy = "task")
-    @JsonIgnoreProperties(value= {"task"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"task", "creator"}, allowSetters=true)
     private Set<TaskComment> comments;
 
     @OneToMany(mappedBy = "task")
@@ -48,7 +48,7 @@ public class Task {
     private Set<Activity> activities;
     
     @ManyToOne
-    @JsonIgnoreProperties(value= {"tasks"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"tasks", "creator", "usersRelated"}, allowSetters=true)
     private Project project;
 
     public Task() {}

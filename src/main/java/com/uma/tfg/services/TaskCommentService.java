@@ -15,6 +15,7 @@ import com.uma.tfg.entities.Activity;
 import com.uma.tfg.entities.Task;
 import com.uma.tfg.entities.TaskComment;
 import com.uma.tfg.entities.User;
+import com.uma.tfg.repositories.ActivityRepository;
 import com.uma.tfg.repositories.TaskCommentRepository;
 import com.uma.tfg.repositories.TaskRepository;
 import com.uma.tfg.repositories.UserRepository;
@@ -30,30 +31,27 @@ public class TaskCommentService {
     private TaskRepository taskRepository;
 	@Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ActivityRepository activityRepository;
 
-    public Task createTaskComment(TaskComment taskImage) {
+    public Task createTaskComment(TaskComment taskComment) {
     	
-    	if(taskImage.getTask() != null) {
+    	if(taskComment.getTask() != null) {
 
-    		Optional<Task> task = taskRepository.findById(taskImage.getTask().getId());
+    		Optional<Task> task = taskRepository.findById(taskComment.getTask().getId());
     		
-    		taskImage.setTask(task.get());
+    		taskComment.setTask(task.get());
     	}
     	
-    	if(taskImage.getCreator() != null) {
+    	if(taskComment.getCreator() != null) {
 
-    		Optional<User> creator = userRepository.findById(taskImage.getCreator().getId());
+    		Optional<User> creator = userRepository.findById(taskComment.getCreator().getId());
     		
-    		taskImage.setCreator(creator.get());
+    		taskComment.setCreator(creator.get());
     	}
-    	taskImage.setCreationDate(LocalDate.now());
+    	taskComment.setCreationDate(LocalDate.now());
     	
-    	TaskComment taskCommentCreated = taskCommentRepository.save(taskImage);
-    	
-    	 Activity act = new Activity();
-         act.setAction("escrito un comentario");
-         act.setActivityDate(LocalDate.now());
-         act.setCreator(taskCommentCreated.getCreator());
+    	TaskComment taskCommentCreated = taskCommentRepository.save(taskComment);
 
     	Optional<Task> task = java.util.Optional.empty();
     	
@@ -71,12 +69,11 @@ public class TaskCommentService {
     		taskRepository.save(task.get());
     	}
 
-    	act.setTask(task.get());
-    	act.setAssignedUsers(task.get().getAssignedUsers());
-         
+
+    	Optional<User> creator = java.util.Optional.empty();
     	if(taskCommentCreated.getCreator() != null) {
 
-    		Optional<User> creator = userRepository.findById(taskCommentCreated.getCreator().getId());
+    		creator = userRepository.findById(taskCommentCreated.getCreator().getId());
     		
 
     		Set<TaskComment> comments = new HashSet<>();
@@ -87,6 +84,28 @@ public class TaskCommentService {
     		
     		userRepository.save(creator.get());
     	}
+    	
+
+    	
+    	Activity act = new Activity();
+        act.setAction("escrito un comentario en");
+        act.setActivityDate(LocalDate.now());
+        act.setTask(task.get());
+        act.setCreator(creator.get());
+        
+        Set<User> users = new HashSet<>();
+        
+		if(task.get().getAssignedUsers() != null) {
+			users.addAll(task.get().getAssignedUsers());
+			
+		}
+		if(task.get().getProject().getUsersRelated() != null) {
+			users.addAll(task.get().getProject().getUsersRelated());
+		}
+		
+        act.setAssignedUsers(users);
+        
+        activityRepository.save(act);
     	
     	return task.get();
     }

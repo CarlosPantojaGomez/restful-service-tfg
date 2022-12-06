@@ -18,6 +18,7 @@ public class Product {
     private String features;
     private Double price;
     private Double rating;
+    private Boolean forSale;
 
     @OneToOne
     @JsonIgnoreProperties(value= {"id" , "product"}, allowSetters=true)
@@ -185,5 +186,20 @@ public class Product {
 	public void setBuyers(Set<User> buyers) {
 		this.buyers = buyers;
 	}
-	
+
+	public Boolean getForSale() {
+		return forSale;
+	}
+
+	public void setForSale(Boolean forSale) {
+		this.forSale = forSale;
+	}
+
+	public Set<Activity> getActivities() {
+		return activities;
+	}
+
+	public void setActivities(Set<Activity> activities) {
+		this.activities = activities;
+	}
 }

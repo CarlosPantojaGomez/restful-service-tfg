@@ -1,9 +1,11 @@
 package com.uma.tfg.controllers;
 
+import com.uma.tfg.entities.Activity;
 import com.uma.tfg.entities.Project;
 import com.uma.tfg.entities.Task;
 import com.uma.tfg.entities.TaskImage;
 import com.uma.tfg.entities.User;
+import com.uma.tfg.services.ActivityService;
 import com.uma.tfg.services.ProjectService;
 import com.uma.tfg.services.TaskImageService;
 import com.uma.tfg.services.TaskService;
@@ -11,6 +13,7 @@ import com.uma.tfg.services.UserService;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,12 +26,14 @@ public class TaskController {
     private final UserService userService;
     private final ProjectService projectService;
     private final TaskImageService taskImageService;
+    private final ActivityService activityService;
     
-    public TaskController(TaskService taskService, ProjectService projectService, UserService userService, TaskImageService taskImageService) { 
+    public TaskController(TaskService taskService, ProjectService projectService, UserService userService, TaskImageService taskImageService, ActivityService activityService) { 
     	this.taskService = taskService; 
     	this.userService = userService;
     	this.projectService = projectService;
     	this.taskImageService = taskImageService;
+    	this.activityService = activityService;
 	}
 
     @PostMapping("/task")
@@ -70,6 +75,8 @@ public class TaskController {
     	
     	
         taskService.createTask(task);
+        
+        Task taskCreated = taskService.getTask(task.getId());
     	
     	if(task.getImages() != null) {
 
@@ -77,14 +84,35 @@ public class TaskController {
     		
     		task.getImages().forEach((image)->{
     			
+    			image.setTask(taskCreated);
+    			
     			TaskImage imageCreated = taskImageService.createTaskImage(image);
     			images.add(imageCreated);
         	});
     		
-    		task.setImages(images);
+    		taskCreated.setImages(images);
     		
-    		taskService.updateTask(task);
+    		taskService.updateTask(taskCreated);
     	}
+    	
+    	Activity act = new Activity();
+        act.setAction("creado");
+        act.setActivityDate(LocalDate.now());
+        act.setTask(taskCreated);
+        act.setCreator(taskCreated.getCreator());
+
+		Set<User> users = new HashSet<>();
+		if(taskCreated.getAssignedUsers() != null) {
+			users.addAll(taskCreated.getAssignedUsers());
+			
+		}
+		if(taskCreated.getProject().getUsersRelated() != null) {
+			users.addAll(taskCreated.getProject().getUsersRelated());
+		}
+		
+        act.setAssignedUsers(users);
+        
+        activityService.createActivity(act);
     }
 
     @PutMapping("/task")

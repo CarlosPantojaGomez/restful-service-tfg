@@ -107,6 +107,7 @@ public class ProductController {
     	prod.setName(request.getProduct().getName());
     	prod.setPrice(request.getProduct().getPrice());
     	prod.setDescription(request.getProduct().getDescription());
+    	prod.setForSale(request.getProduct().getForSale());
     	prod.setFeatures(request.getProduct().getFeatures());
         
         
