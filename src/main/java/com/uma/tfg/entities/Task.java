@@ -24,7 +24,7 @@ public class Task {
     private Integer numHours;
 
     @OneToMany(mappedBy = "task")
-    @JsonIgnoreProperties(value= {"task", "creator"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"task"}, allowSetters=true)
     private Set<TaskComment> comments;
 
     @OneToMany(mappedBy = "task")

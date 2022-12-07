@@ -93,6 +93,10 @@ public class ProjectService {
     public List<Project> getAll() {
         return (List<Project>) projectRepository.findAll();
     }
+    
+    public List<Project> getProjectsForUser(String userId) {
+        return (List<Project>) projectRepository.getProjectsForUser(userId);
+    }
 
     public Project getProject(Long id) throws Exception{
         return projectRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));

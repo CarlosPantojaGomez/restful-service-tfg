@@ -54,6 +54,11 @@ public class ProjectController {
     public List<Project> all() {
         return projectService.getAll();
     }
+    
+    @GetMapping("/projects/user/{userId}")
+    public List<Project> getProjectsForUser(@PathVariable String userId) {
+        return projectService.getProjectsForUser(userId);
+    }
 
     @DeleteMapping("/project/delete/{id}")
     public void deleteProject(@PathVariable Long id) throws Exception {
