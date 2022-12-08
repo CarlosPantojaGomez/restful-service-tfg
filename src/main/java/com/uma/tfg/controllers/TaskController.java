@@ -38,7 +38,7 @@ public class TaskController {
 
     @PostMapping("/task")
     public void createTask(@RequestBody Task task) throws Exception {
-    	
+    	System.out.println(task.getEndDate());
     	if(task.getProject() != null) {
     		if(task.getProject().getId() != null) {
     			Project proj = projectService.getProject(task.getProject().getId());
@@ -73,6 +73,7 @@ public class TaskController {
     		task.setAssignedUsers(usersRelated);
     	}
     	
+    	task.setCreationDate(LocalDate.now());
     	
         taskService.createTask(task);
         

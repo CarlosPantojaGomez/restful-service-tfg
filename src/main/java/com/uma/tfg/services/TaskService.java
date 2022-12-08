@@ -3,8 +3,10 @@ package com.uma.tfg.services;
 import com.uma.tfg.entities.Activity;
 import com.uma.tfg.entities.Project;
 import com.uma.tfg.entities.Task;
+import com.uma.tfg.entities.TaskImage;
 import com.uma.tfg.entities.User;
 import com.uma.tfg.repositories.ActivityRepository;
+import com.uma.tfg.repositories.TaskImageRepository;
 import com.uma.tfg.repositories.TaskRepository;
 import com.uma.tfg.repositories.UserRepository;
 
@@ -30,6 +32,8 @@ public class TaskService {
     private UserRepository userRepository;
     @Autowired
     private ActivityRepository activityRepository;
+    @Autowired
+    private TaskImageRepository taskImageRepository;
 
     public void createTask(Task task) {
 		User creator = userRepository.findByNicknameAndFlagActive(task.getCreator().getNickname(), 1);
@@ -45,12 +49,35 @@ public class TaskService {
         old.setComments(task.getComments());
         old.setCreationDate(task.getCreationDate());
         old.setDescription(task.getDescription());
-        old.setImages(task.getImages());
         old.setNumHours(task.getNumHours());
         old.setPriority(task.getPriority());
         old.setState(task.getState());
         old.setName(task.getName());
-
+        old.setEndDate(task.getEndDate());
+        old.setStartDate(task.getStartDate());
+        
+        List<TaskImage> taskImages =  taskImageRepository.findByTask(old);
+    	
+        taskImages.forEach((image)->{
+        	System.out.println(image.getId());
+			try {
+				taskImageRepository.delete(image);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	});
+        
+        Set<TaskImage> images = new HashSet<>();
+    	
+        task.getImages().forEach((image)->{
+    		image.setTask(task);
+        	TaskImage taskImage = taskImageRepository.save(image); 
+        	images.add(taskImage);
+    	});
+        
+        old.setImages(images);
+        
         taskRepository.save(old);
     	
     	Activity act = new Activity();

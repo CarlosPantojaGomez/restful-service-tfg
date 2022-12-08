@@ -3,10 +3,8 @@ package com.uma.tfg.services;
 import com.uma.tfg.entities.Product;
 import com.uma.tfg.entities.User;
 import com.uma.tfg.entities.UserRequest;
-import com.uma.tfg.entities.UsersForTaskRequest;
 import com.uma.tfg.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 /*import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -54,6 +52,11 @@ public class UserService {
     public List<User> getcoincidencesByNickname(String input){
     	System.out.println(input);
         return (List<User>) userRepository.getCoincidencesByNickname(input);
+    } 
+    
+    public List<User> getcoincidencesByNicknameForProject(String input){
+    	System.out.println(input);
+        return (List<User>) userRepository.getCoincidencesByNicknameForProject(input);
     } 
     
     public List<User> getCoincidencesForTaskByNickname(String input, long projectId){
