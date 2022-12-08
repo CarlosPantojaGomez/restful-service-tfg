@@ -9,6 +9,7 @@ public class TaskImage {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
+    @Lob
     private String url;
 
     @ManyToOne

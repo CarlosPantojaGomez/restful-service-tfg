@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.uma.tfg.entities.Task;
 import com.uma.tfg.entities.TaskImage;
 import com.uma.tfg.repositories.TaskImageRepository;
 
@@ -30,6 +31,11 @@ public class TaskImageService {
     public List<TaskImage> getAll() {
         return (List<TaskImage>) taskImageRepository.findAll();
     }
+    
+    public List<TaskImage> getImagesByTask(Task task) {
+        return (List<TaskImage>) taskImageRepository.findByTask(task);
+    }
+
 
     public TaskImage getTaskImage(Long id) throws Exception{
         return taskImageRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));

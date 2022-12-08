@@ -28,7 +28,7 @@ public class Task {
     private Set<TaskComment> comments;
 
     @OneToMany(mappedBy = "task")
-    @JsonIgnoreProperties(value= {"url" , "task"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"task"}, allowSetters=true)
     private Set<TaskImage> images;
 
     @ManyToOne
