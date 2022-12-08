@@ -32,7 +32,7 @@ public class MailService {
 
     public void createMail(Mail mail) {
     	if(mail.getReceiverName() != null && mail.getWriterName() != null) {
-    		User writer = userRepository.findByNicknameAndFlagActive(mail.getReceiverName(), 1);
+    		User writer = userRepository.findByNicknameAndFlagActive(mail.getWriterName(), 1);
 
     		User receiver = userRepository.findByNicknameAndFlagActive(mail.getReceiverName(), 1);
     		

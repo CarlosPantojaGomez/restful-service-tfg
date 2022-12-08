@@ -55,7 +55,7 @@ public class User {
     private Set<Task> createdTasks;
 
     @ManyToMany(mappedBy = "assignedUsers")
-    @JsonIgnoreProperties(value= {"creator"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"creator", "comments"}, allowSetters=true)
     private Set<Task> assignedTasks;
 
     @ManyToMany(mappedBy = "usersRelated")

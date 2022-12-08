@@ -46,9 +46,10 @@ public class MailController {
         return (List<Mail>) mailService.getMailsReceiver(receiver);
     }
 
-    @GetMapping("/mails_writer")
-    public List<Mail> getMailsWriter(@RequestBody User user) throws Exception {
-        return (List<Mail>) mailService.getMailsWriter(user);
+    @GetMapping("/mails_writer/{userId}")
+    public List<Mail> getMailsWriter(@PathVariable Long userId) throws Exception {
+    	User writer = userService.getUser(userId);
+        return (List<Mail>) mailService.getMailsWriter(writer);
     }
 
     @DeleteMapping("/mail/delete/{id}")
