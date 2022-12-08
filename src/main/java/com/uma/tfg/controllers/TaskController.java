@@ -141,6 +141,11 @@ public class TaskController {
         return taskService.getTask(id);
     }
     
+    @GetMapping("/task/user/{userId}")
+    public List<Task> getTasksForUser(@PathVariable Long userId) throws Exception {
+        return taskService.getTasksForUser(userId.toString());
+    }
+    
     @GetMapping("/task/assignedUser")
     public List<Task> getTasksAssignedUser(@RequestBody User user) {
         return taskService.getTasksAssignedUser(user);

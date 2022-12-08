@@ -35,7 +35,7 @@ public class UserController {
         userService.createUser(user);
     }
 
-    @DeleteMapping("/userDelete/{id}")
+    @PutMapping("/userDelete/{id}")
     public void deleteUser(@PathVariable String id) throws Exception {
         Long idUser = Long.parseLong(id);
         userService.deleteUser(idUser);

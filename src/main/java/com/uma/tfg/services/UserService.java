@@ -16,6 +16,7 @@ import payroll.UserNotFoundException;
 import javax.transaction.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -34,7 +35,9 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
-        userRepository.setFlagActive(0, id);
+    	Optional<User> user = userRepository.findById(id);
+    	user.get().setFlagActive(0);
+    	userRepository.save(user.get());
     }
 
     public User getUser(Long id) throws Exception{

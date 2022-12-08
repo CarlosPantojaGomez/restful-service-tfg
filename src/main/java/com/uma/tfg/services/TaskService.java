@@ -185,6 +185,10 @@ public class TaskService {
         return taskRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
     
+    public List<Task> getTasksForUser(String userId) {
+        return (List<Task>) taskRepository.getTasksForUser(userId);
+    }
+    
     public List<Task> getTasksAssignedUser(User user) {
         return (List<Task>) taskRepository.findByAssignedUsers(user);
     }

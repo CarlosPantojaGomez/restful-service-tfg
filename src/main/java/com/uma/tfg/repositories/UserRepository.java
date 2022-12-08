@@ -30,7 +30,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query( value = "select top (6) * from user u Where u.nickname like %:input% ", nativeQuery = true)
 	List<User> getCoincidencesByNickname(@Param("input") String input);
     
-    @Query( value = "select top (6) * from user u Where u.nickname like %:input% and u.user_type = 3 or user_type = 2", nativeQuery = true)
+    @Query( value = "select top (6) * from user u Where u.nickname like %:input% and (u.user_type = 3 or user_type = 2)", nativeQuery = true)
 	List<User> getCoincidencesByNicknameForProject(@Param("input") String input);
     
     @Query( value = "select top (6) * from user u join PROJECT_ASSIGNED prj on u.id = prj.user_id Where u.nickname like %:input% and prj.project_id = :projectId", nativeQuery = true)
