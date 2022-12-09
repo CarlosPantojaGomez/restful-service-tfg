@@ -23,7 +23,7 @@ public class Activity {
     private LocalDate activityDate;
 	
 	@ManyToMany
-    @JsonIgnoreProperties(value= {"productsBought" , "bills", "tasksComments", "productsComments", "receivedMails", "writtenMails", "createdTasks", "assignedTasks", "gender", "country", "activitiesRelated"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"productsBought" , "bills", "tasksComments", "productsComments", "receivedMails", "writtenMails", "createdTasks", "assignedTasks", "gender", "country", "activitiesRelated", "activitiesCreated"}, allowSetters=true)
     @JoinTable(
             name = "user_assigned",
             joinColumns = @JoinColumn(name = "activity_id"),
@@ -31,7 +31,7 @@ public class Activity {
     private Set<User> assignedUsers;
 
 	@ManyToOne
-	@JsonIgnoreProperties(value= {"productsBought" , "bills", "tasksComments", "productsComments", "receivedMails", "writtenMails", "createdTasks", "assignedTasks", "gender", "country", "activitiesRelated"}, allowSetters=true)
+	@JsonIgnoreProperties(value= {"productsBought" , "bills", "tasksComments", "productsComments", "receivedMails", "writtenMails", "createdTasks", "assignedTasks", "gender", "country", "activitiesRelated", "activitiesCreated"}, allowSetters=true)
     private User creator;
 	
 	@ManyToOne

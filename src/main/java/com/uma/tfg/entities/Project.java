@@ -48,7 +48,7 @@ public class Project {
             name = "project_assigned",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    @JsonIgnoreProperties(value= {"tasksComments"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"tasksComments", "file", "bills", "manuals", "profileImage", "images", "projects", "projectsAssigned", "activitiesRelated"}, allowSetters=true)
     private Set<User> usersRelated;
     
     @OneToMany(mappedBy = "product")

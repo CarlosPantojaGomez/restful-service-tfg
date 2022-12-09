@@ -63,11 +63,11 @@ public class User {
     private Set<Task> assignedTasks;
 
     @ManyToMany(mappedBy = "usersRelated")
-    @JsonIgnoreProperties(value= {"comments", "images", "creator", "assignedUsers", "project"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"comments", "images", "creator", "assignedUsers", "project", "usersRelated"}, allowSetters=true)
     private Set<Project> projectsAssigned;
     
     @OneToMany(mappedBy = "creator")
-    @JsonIgnoreProperties(value= {"writer" , "receiver"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"comments", "images", "creator", "assignedUsers", "project", "usersRelated"}, allowSetters=true)
     private Set<Project> projectsCreated;
     
     @ManyToMany(mappedBy = "buyers")
@@ -79,6 +79,7 @@ public class User {
     private Set<Activity> activitiesRelated;
     
     @OneToMany(mappedBy = "creator")
+    @JsonIgnoreProperties(value= {"assignedUsers" , "product", "task", "project"}, allowSetters=true)
     private Set<Activity> activitiesCreated;
     @ManyToOne
     @JoinColumn(name="user_place")
