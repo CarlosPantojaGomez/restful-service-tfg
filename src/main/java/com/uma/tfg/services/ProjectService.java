@@ -15,7 +15,6 @@ import com.uma.tfg.entities.Activity;
 import com.uma.tfg.entities.Project;
 import com.uma.tfg.entities.User;
 import com.uma.tfg.repositories.ActivityRepository;
-import com.uma.tfg.repositories.ProductRepository;
 import com.uma.tfg.repositories.ProjectRepository;
 import com.uma.tfg.repositories.UserRepository;
 
@@ -30,8 +29,6 @@ public class ProjectService {
     private UserRepository userRepository;
     @Autowired
     private ActivityRepository activityRepository;
-    @Autowired
-    private ProductRepository productRepository;
 	
 	public Project createProject(Project project) {
 		User creator = userRepository.findByNicknameAndFlagActive(project.getCreator().getNickname(), 1);

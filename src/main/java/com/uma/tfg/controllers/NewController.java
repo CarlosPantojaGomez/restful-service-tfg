@@ -24,7 +24,7 @@ public class NewController {
     public NewController(NewService newService) { this.newService = newService; }
 
     @PostMapping("/new")
-    public void createProduct(@RequestBody New new1) throws Exception {
+    public void createNoticia(@RequestBody New new1) throws Exception {
     	newService.createNew(new1);
     }
     

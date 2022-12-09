@@ -1,6 +1,9 @@
 package com.uma.tfg.entities;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.time.LocalDate;
 
 @Entity
@@ -11,15 +14,19 @@ public class Bill {
     private Integer id;
     private LocalDate saleDate;
     private Double iva;
+    private Double netValue;
+    private Double grossValue;
     private String companyName;
     private String cif;
     private String companyAddress;
 
     @ManyToOne
+    @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects"}, allowSetters=true)
     @JoinColumn(name="user_id")
     private User user;
 
     @ManyToOne
+    @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects"}, allowSetters=true)
     @JoinColumn(name="product_id")
     private Product product;
 
@@ -111,8 +118,24 @@ public class Bill {
     public void setProduct(Product product) {
         this.product = product;
     }
+    
+    public Double getNetValue() {
+		return netValue;
+	}
 
-    @Override
+	public void setNetValue(Double netValue) {
+		this.netValue = netValue;
+	}
+
+	public Double getGrossValue() {
+		return grossValue;
+	}
+
+	public void setGrossValue(Double grossValue) {
+		this.grossValue = grossValue;
+	}
+
+	@Override
     public String toString() {
         return "Bill{" +
                 "id=" + id +

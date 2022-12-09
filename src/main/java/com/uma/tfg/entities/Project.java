@@ -1,5 +1,6 @@
 package com.uma.tfg.entities;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -27,6 +28,7 @@ public class Project {
     @Column
     private String description;
     private Double priority;
+    private LocalDate creationDate;
     
     @ManyToMany(mappedBy = "project")
     @JsonIgnoreProperties(value= {"comments", "images", "creator", "assignedUsers", "project", "activities"}, allowSetters=true)
@@ -123,5 +125,14 @@ public class Project {
 
 	public void setActivities(Set<Activity> activities) {
 		this.activities = activities;
+	}
+
+	public LocalDate getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(LocalDate creationDate) {
+		this.creationDate = creationDate;
 	}	
+	
 }

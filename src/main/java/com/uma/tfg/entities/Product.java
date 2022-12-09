@@ -3,6 +3,8 @@ package com.uma.tfg.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -12,6 +14,7 @@ public class Product {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String name;
+    private LocalDate creationDate;
     @Lob
     @Column
     private String description;
@@ -26,6 +29,9 @@ public class Product {
     
     @OneToMany(mappedBy = "user")
     private Set<Bill> bills;
+    
+    @OneToMany(mappedBy = "creator")
+    private Set<New> news;
 
     @OneToMany(mappedBy = "product")
     private Set<ProductComment> comments;
@@ -201,5 +207,21 @@ public class Product {
 
 	public void setActivities(Set<Activity> activities) {
 		this.activities = activities;
+	}
+
+	public Set<New> getNews() {
+		return news;
+	}
+
+	public void setNews(Set<New> news) {
+		this.news = news;
+	}
+
+	public LocalDate getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(LocalDate creationDate) {
+		this.creationDate = creationDate;
 	}
 }

@@ -53,6 +53,10 @@ public class User {
     @OneToMany(mappedBy = "creator")
     @JsonIgnoreProperties(value= {"comments" , "images", "creator", "assignedUsers", "activities", "project"}, allowSetters=true)
     private Set<Task> createdTasks;
+    
+    @OneToMany(mappedBy = "creator")
+    @JsonIgnoreProperties(value= {"comments" , "images", "creator", "assignedUsers", "activities", "project"}, allowSetters=true)
+    private Set<New> createdNews;
 
     @ManyToMany(mappedBy = "assignedUsers")
     @JsonIgnoreProperties(value= {"creator", "comments"}, allowSetters=true)
@@ -310,6 +314,55 @@ public class User {
 
 	public void setBoughtProducts(Set<Product> productsBought) {
 		this.productsBought = productsBought;
+	}
+
+	
+	public Set<New> getCreatedNews() {
+		return createdNews;
+	}
+
+	public void setCreatedNews(Set<New> createdNews) {
+		this.createdNews = createdNews;
+	}
+
+	public Set<Project> getProjectsAssigned() {
+		return projectsAssigned;
+	}
+
+	public void setProjectsAssigned(Set<Project> projectsAssigned) {
+		this.projectsAssigned = projectsAssigned;
+	}
+
+	public Set<Project> getProjectsCreated() {
+		return projectsCreated;
+	}
+
+	public void setProjectsCreated(Set<Project> projectsCreated) {
+		this.projectsCreated = projectsCreated;
+	}
+
+	public Set<Product> getProductsBought() {
+		return productsBought;
+	}
+
+	public void setProductsBought(Set<Product> productsBought) {
+		this.productsBought = productsBought;
+	}
+
+	public Set<Activity> getActivitiesRelated() {
+		return activitiesRelated;
+	}
+
+	public void setActivitiesRelated(Set<Activity> activitiesRelated) {
+		this.activitiesRelated = activitiesRelated;
+	}
+
+	public Set<Activity> getActivitiesCreated() {
+		return activitiesCreated;
+	}
+
+	public void setActivitiesCreated(Set<Activity> activitiesCreated) {
+		this.activitiesCreated = activitiesCreated;
 	}
 
 	@Override

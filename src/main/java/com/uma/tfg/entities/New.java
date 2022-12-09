@@ -1,12 +1,14 @@
 package com.uma.tfg.entities;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -16,15 +18,25 @@ public class New {
 	@Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+    @Lob
+    @Column
 	private String sortDescription;
 	private String title;
+    private LocalDate creationDate;
     @Lob
     @Column
 	private String description;
+
+    @Lob
+    private String cardImage;
 	
-	@OneToOne
-    @JsonIgnoreProperties(value= {"id" , "product"}, allowSetters=true)
-    private ProductImage cardImage;
+	@ManyToOne
+    @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects"}, allowSetters=true)
+    private Product product;
+	
+	@ManyToOne
+    @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects"}, allowSetters=true)
+    private User creator;
 	
 	public New() {}
 
@@ -36,7 +48,6 @@ public class New {
         if (idNewCardImage != null) {
             ProductImage productImage = new ProductImage();
             productImage.setId(idNewCardImage);
-            this.cardImage = productImage;
         }
     }
     
@@ -71,13 +82,37 @@ public class New {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    public ProductImage getcardImage() {
-        return cardImage;
-    }
 
-    public void setcardImage(ProductImage cardImage) {
-        this.cardImage = cardImage;
-    }
+	public Product getProduct() {
+		return product;
+	}
 
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public User getCreator() {
+		return creator;
+	}
+
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+
+	public LocalDate getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(LocalDate creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public String getCardImage() {
+		return cardImage;
+	}
+
+	public void setCardImage(String cardImage) {
+		this.cardImage = cardImage;
+	}
+	
 }
