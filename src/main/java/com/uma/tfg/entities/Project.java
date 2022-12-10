@@ -3,6 +3,7 @@ package com.uma.tfg.entities;
 import java.time.LocalDate;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,20 +31,20 @@ public class Project {
     private Double priority;
     private LocalDate creationDate;
     
-    @ManyToMany(mappedBy = "project")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "project")
     @JsonIgnoreProperties(value= {"comments", "images", "creator", "assignedUsers", "project", "activities"}, allowSetters=true)
     private Set<Task> tasks;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects"}, allowSetters=true)
     private Product product;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects"}, allowSetters=true)
     private User creator;
     
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "project_assigned",
             joinColumns = @JoinColumn(name = "project_id"),
@@ -51,7 +52,7 @@ public class Project {
     @JsonIgnoreProperties(value= {"tasksComments", "file", "bills", "manuals", "profileImage", "images", "projects", "projectsAssigned", "activitiesRelated"}, allowSetters=true)
     private Set<User> usersRelated;
     
-    @OneToMany(mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     @JsonIgnoreProperties(value= {"assignedUsers" , "product", "task", "project"}, allowSetters=true)
     private Set<Activity> activities;
 

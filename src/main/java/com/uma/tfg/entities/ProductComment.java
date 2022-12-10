@@ -12,10 +12,10 @@ public class ProductComment {
     private LocalDate creationDate;
     private String text;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private User creator;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Product product;
 
     public ProductComment() {}

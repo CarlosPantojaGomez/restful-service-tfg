@@ -12,7 +12,7 @@ public class Country {
     private Long id;
     private String name;
     
-    @OneToMany(mappedBy = "country")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "country")
     private Set<User> user;
     
     public Country() {}

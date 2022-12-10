@@ -19,15 +19,15 @@ public class Mail {
     private String receiverName;
     private boolean saw;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"writtenMails"}, allowSetters=true)
     private User writer;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"receivedMails"}, allowSetters=true)
     private User receiver;
     
-    @OneToMany(mappedBy = "mail")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mail")
     @JsonIgnoreProperties(value= {"assignedUsers" , "product", "task", "project"}, allowSetters=true)
     private Set<Activity> activities;
 

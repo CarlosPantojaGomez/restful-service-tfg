@@ -18,44 +18,45 @@ public class Product {
     @Lob
     @Column
     private String description;
+    @Lob
     private String features;
     private Double price;
     private Double rating;
     private Boolean forSale;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"id" , "product"}, allowSetters=true)
     private File file;
     
-    @OneToMany(mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Bill> bills;
     
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "creator")
     private Set<New> news;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private Set<ProductComment> comments;
     
-    @OneToMany(mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     @JsonIgnoreProperties(value= {"product"}, allowSetters=true)
     private Set<Manual> manuals;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"id" , "product"}, allowSetters=true)
     private ProductImage profileImage;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     @JsonIgnoreProperties(value= {"product"}, allowSetters=true)
     private Set<ProductImage> images;
     
-    @OneToMany(mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     @JsonIgnoreProperties(value= {"assignedUsers" , "product", "task", "project"}, allowSetters=true)
     private Set<Activity> activities;
     
-    @OneToMany(mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private Set<Project> projects;
     
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_buyer",
             joinColumns = @JoinColumn(name = "user_id"),

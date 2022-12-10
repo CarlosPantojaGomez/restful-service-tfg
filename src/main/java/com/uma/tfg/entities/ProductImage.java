@@ -16,7 +16,7 @@ public class ProductImage {
     private String url;
     private Integer imageType;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"description" , "price", "rating" , "bills", "comments", "profileImage", "images"}, allowSetters=true)
     private Product product;
 

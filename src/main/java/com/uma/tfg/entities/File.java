@@ -1,5 +1,6 @@
 package com.uma.tfg.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,11 +25,11 @@ public class File  {
 	@Lob
 	private String data;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"description" , "price", "rating" , "bills", "comments", "profileImage", "images"}, allowSetters=true)
     private Product product;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"product"}, allowSetters=true)
     private Manual manual;
 	

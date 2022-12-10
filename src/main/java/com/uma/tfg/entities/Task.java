@@ -23,19 +23,19 @@ public class Task {
     private Integer state;
     private Integer numHours;
 
-    @OneToMany(mappedBy = "task")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "task")
     @JsonIgnoreProperties(value= {"task"}, allowSetters=true)
     private Set<TaskComment> comments;
 
-    @OneToMany(mappedBy = "task")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "task")
     @JsonIgnoreProperties(value= {"task"}, allowSetters=true)
     private Set<TaskImage> images;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"createdTasks" , "assignedTasks", "receivedMails", "writtenMails", "bills", "tasksComments", "productsComments"}, allowSetters=true)
     private User creator;
     
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "task_assigned",
             joinColumns = @JoinColumn(name = "task_id"),
@@ -43,11 +43,11 @@ public class Task {
     @JsonIgnoreProperties(value= {"createdTasks" , "assignedTasks", "receivedMails", "writtenMails", "bills", "tasksComments", "productsComments"}, allowSetters=true)
     private Set<User> assignedUsers;
     
-    @OneToMany(mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     @JsonIgnoreProperties(value= {"assignedUsers" , "product", "task", "project"}, allowSetters=true)
     private Set<Activity> activities;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"tasks", "creator", "usersRelated"}, allowSetters=true)
     private Project project;
 

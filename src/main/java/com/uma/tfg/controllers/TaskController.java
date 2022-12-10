@@ -75,11 +75,9 @@ public class TaskController {
     	
     	task.setCreationDate(LocalDate.now());
     	
-        taskService.createTask(task);
-        
-        Task taskCreated = taskService.getTask(task.getId());
+        Task taskCreated = taskService.createTask(task);
     	
-    	if(task.getImages() != null) {
+    	if(taskCreated.getImages() != null) {
 
     		Set<TaskImage> images = new HashSet<>();
     		
@@ -92,8 +90,8 @@ public class TaskController {
         	});
     		
     		taskCreated.setImages(images);
-    		
-    		taskService.updateTask(taskCreated);
+    		System.out.println("llega");
+    		taskService.updateAfterCreation(taskCreated);
     	}
     	
     	Activity act = new Activity();

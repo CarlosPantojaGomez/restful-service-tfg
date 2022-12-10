@@ -32,60 +32,62 @@ public class User {
     private Integer flagActive;
     
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnoreProperties(value= {"user" , "product"}, allowSetters=true)
     private Set<Bill> bills;
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "creator")
     @JsonIgnoreProperties(value= {"creator" , "task"}, allowSetters=true)
     private Set<TaskComment> tasksComments;
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "creator")
     private Set<ProductComment> productsComments;
 
-    @OneToMany(mappedBy = "receiver")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver")
     @JsonIgnoreProperties(value= {"writer" , "receiver"}, allowSetters=true)
     private Set<Mail> receivedMails;
 
-    @OneToMany(mappedBy = "writer")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer")
     @JsonIgnoreProperties(value= {"writer" , "receiver"}, allowSetters=true)
     private Set<Mail> writtenMails;
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "creator")
     @JsonIgnoreProperties(value= {"comments" , "images", "creator", "assignedUsers", "activities", "project"}, allowSetters=true)
     private Set<Task> createdTasks;
     
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "creator")
     @JsonIgnoreProperties(value= {"comments" , "images", "creator", "assignedUsers", "activities", "project"}, allowSetters=true)
     private Set<New> createdNews;
 
-    @ManyToMany(mappedBy = "assignedUsers")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "assignedUsers")
     @JsonIgnoreProperties(value= {"creator", "comments"}, allowSetters=true)
     private Set<Task> assignedTasks;
 
-    @ManyToMany(mappedBy = "usersRelated")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "usersRelated")
     @JsonIgnoreProperties(value= {"comments", "images", "creator", "assignedUsers", "project", "usersRelated"}, allowSetters=true)
     private Set<Project> projectsAssigned;
     
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "creator")
     @JsonIgnoreProperties(value= {"comments", "images", "creator", "assignedUsers", "project", "usersRelated"}, allowSetters=true)
     private Set<Project> projectsCreated;
     
-    @ManyToMany(mappedBy = "buyers")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "buyers")
     @JsonIgnoreProperties(value= {"file" , "bills", "comments", "manuals", "profileImage", "images", "projects", "buyers"}, allowSetters=true)
     private Set<Product> productsBought;
     
-    @ManyToMany(mappedBy = "assignedUsers")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "assignedUsers")
     @JsonIgnoreProperties(value= {"assignedUsers" , "product", "task", "project"}, allowSetters=true)
     private Set<Activity> activitiesRelated;
     
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "creator")
     @JsonIgnoreProperties(value= {"assignedUsers" , "product", "task", "project"}, allowSetters=true)
     private Set<Activity> activitiesCreated;
-    @ManyToOne
+    
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="user_place")
     private Country country;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="user_gender")
     private Gender gender;
     

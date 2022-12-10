@@ -35,12 +35,16 @@ public class TaskService {
     @Autowired
     private TaskImageRepository taskImageRepository;
 
-    public void createTask(Task task) {
+    public Task createTask(Task task) {
 		User creator = userRepository.findByNicknameAndFlagActive(task.getCreator().getNickname(), 1);
 		task.setCreator(creator);
-        taskRepository.save(task);
+        return taskRepository.save(task);
     }
 
+    public void updateAfterCreation(Task task) {
+    	taskRepository.save(task);
+    }
+    
     public void updateTask(Task task) {
         Task old = taskRepository.findById(task.getId()).orElseThrow(() -> new UserNotFoundException(task.getId()));
         

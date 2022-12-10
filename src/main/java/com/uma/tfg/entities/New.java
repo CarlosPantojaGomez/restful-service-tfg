@@ -2,6 +2,7 @@ package com.uma.tfg.entities;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,11 +31,11 @@ public class New {
     @Lob
     private String cardImage;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects"}, allowSetters=true)
     private Product product;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects"}, allowSetters=true)
     private User creator;
 	

@@ -12,7 +12,7 @@ public class Gender {
     private Long id;
     private String gender;
 
-    @OneToMany(mappedBy = "gender")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gender")
     private Set<User> user;
     
     public Gender() {}
