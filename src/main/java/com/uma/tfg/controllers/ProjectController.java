@@ -1,6 +1,8 @@
 package com.uma.tfg.controllers;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,18 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uma.tfg.entities.Product;
 import com.uma.tfg.entities.Project;
+import com.uma.tfg.entities.User;
 import com.uma.tfg.services.ProductService;
 import com.uma.tfg.services.ProjectService;
+import com.uma.tfg.services.TaskService;
 
 @RestController
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT, RequestMethod.DELETE})
 public class ProjectController {
 	
 	private final ProjectService projectService;
+	private final TaskService taskService;
 	private final ProductService productService;
     
-    public ProjectController(ProjectService projectService, ProductService productService) { 
+    public ProjectController(ProjectService projectService, ProductService productService, TaskService taskService) { 
     	this.projectService = projectService;
+    	this.taskService = taskService;
     	this.productService = productService;
 	}
 
@@ -62,6 +68,23 @@ public class ProjectController {
 
     @DeleteMapping("/project/delete/{id}")
     public void deleteProject(@PathVariable Long id) throws Exception {
+    	
+    	Project p = projectService.getProject(id);
+    	
+    	Set<User> usersRelated = new HashSet<>();
+		if(p.getTasks() != null) {
+			p.getTasks().forEach((task)->{
+				try {
+					taskService.delete(task.getId());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    	});
+		}
+		
+		
+		p.setUsersRelated(usersRelated);
     	projectService.delete(id);
     }
 }

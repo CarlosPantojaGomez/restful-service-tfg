@@ -38,7 +38,9 @@ public class TaskController {
 
     @PostMapping("/task")
     public void createTask(@RequestBody Task task) throws Exception {
-    	System.out.println(task.getEndDate());
+
+    	task.setFlagActive(1);
+    	
     	if(task.getProject() != null) {
     		if(task.getProject().getId() != null) {
     			Project proj = projectService.getProject(task.getProject().getId());

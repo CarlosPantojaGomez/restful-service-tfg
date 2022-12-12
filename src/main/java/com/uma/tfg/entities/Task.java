@@ -22,6 +22,7 @@ public class Task {
     private Integer priority;
     private Integer state;
     private Integer numHours;
+    private Integer flagActive;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "task")
     @JsonIgnoreProperties(value= {"task"}, allowSetters=true)
@@ -43,7 +44,7 @@ public class Task {
     @JsonIgnoreProperties(value= {"createdTasks" , "assignedTasks", "receivedMails", "writtenMails", "bills", "tasksComments", "productsComments"}, allowSetters=true)
     private Set<User> assignedUsers;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "task")
     @JsonIgnoreProperties(value= {"assignedUsers" , "product", "task", "project"}, allowSetters=true)
     private Set<Activity> activities;
     
@@ -188,5 +189,14 @@ public class Task {
 
 	public void setActivities(Set<Activity> activities) {
 		this.activities = activities;
+	}
+
+	public Integer getFlagActive() {
+		return flagActive;
+	}
+
+	public void setFlagActive(Integer flagActive) {
+		this.flagActive = flagActive;
 	}  
+	
 }

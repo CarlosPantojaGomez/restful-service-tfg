@@ -22,6 +22,7 @@ public class Activity {
     private Long id;
     private String action;
     private LocalDate activityDate;
+    private Integer flagActive;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"productsBought" , "bills", "tasksComments", "productsComments", "receivedMails", "writtenMails", "createdTasks", "assignedTasks", "gender", "country", "activitiesRelated", "activitiesCreated"}, allowSetters=true)
@@ -109,4 +110,11 @@ public class Activity {
 	public void setCreator(User creator) {
 		this.creator = creator;
 	}
+	public Integer getFlagActive() {
+		return flagActive;
+	}
+	public void setFlagActive(Integer flagActive) {
+		this.flagActive = flagActive;
+	}
+	
 }

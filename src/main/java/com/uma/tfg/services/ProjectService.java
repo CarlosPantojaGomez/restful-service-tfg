@@ -13,12 +13,12 @@ import org.springframework.stereotype.Service;
 
 import com.uma.tfg.entities.Activity;
 import com.uma.tfg.entities.Project;
+import com.uma.tfg.entities.Task;
 import com.uma.tfg.entities.User;
 import com.uma.tfg.repositories.ActivityRepository;
 import com.uma.tfg.repositories.ProjectRepository;
 import com.uma.tfg.repositories.UserRepository;
 
-import payroll.UserNotFoundException;
 
 @Service
 @Transactional
@@ -41,6 +41,7 @@ public class ProjectService {
     	});
 		project.setCreator(creator);
 		project.setUsersRelated(users);
+		project.setFlagActive(1);
     	Project p = projectRepository.save(project);
     	
     	Activity act = new Activity();
@@ -88,7 +89,7 @@ public class ProjectService {
     }
 
     public List<Project> getAll() {
-        return (List<Project>) projectRepository.findAll();
+        return (List<Project>) projectRepository.findAllByFlagActive(1);
     }
     
     public List<Project> getProjectsForUser(String userId) {
@@ -96,10 +97,51 @@ public class ProjectService {
     }
 
     public Project getProject(Long id) throws Exception{
-        return projectRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    	Project p = projectRepository.findByIdAndFlagActive(id, 1);
+    	
+    	Set<Activity> activities = new HashSet<>();
+		
+		p.getActivities().forEach((activity)->{
+			if(activity.getFlagActive() == 1) {
+				activities.add(activity);
+			}
+    	});
+		
+		p.setActivities(activities);
+		
+		Set<Task> tasks = new HashSet<>();
+		
+		p.getTasks().forEach((task)->{
+			if(task.getFlagActive() == 1) {
+				tasks.add(task);
+			}
+    	});
+		
+		p.setTasks(tasks);
+		
+		Set<User> usersRelated = new HashSet<>();
+		
+		p.getUsersRelated().forEach((user)->{
+			if(user.getFlagActive() == 1) {
+				usersRelated.add(user);
+			}
+    	});
+		
+		p.setUsersRelated(usersRelated);
+		
+        return p;
     }
     
     public void delete(Long id) throws Exception {
-    	projectRepository.deleteById(id);
+    	Optional<Project> p = projectRepository.findById(id); 
+    	
+    	p.get().getActivities().forEach((activityRelated)->{
+    		activityRepository.setFlagActive(0, activityRelated.getId());
+    	});
+    	
+
+    	p.get().setFlagActive(0);
+    	
+    	projectRepository.save(p.get());
     }
 }

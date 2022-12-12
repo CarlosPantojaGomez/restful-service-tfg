@@ -1,4 +1,4 @@
-INSERT INTO USER (id, flag_active, name, nickname, password, user_type, email, first_last_name, second_last_name) VALUES (1, 1, 'Carlos', 'admin', 'admin', 4, 'admin@gmail.com', 'Pantoja', 'Gomez');
+/*INSERT INTO USER (id, flag_active, name, nickname, password, user_type, email, first_last_name, second_last_name) VALUES (1, 1, 'Carlos', 'admin', 'admin', 4, 'admin@gmail.com', 'Pantoja', 'Gomez');
 INSERT INTO USER (id, flag_active, name, nickname, password, user_type, email, first_last_name, second_last_name) VALUES (2, 1, 'Antonio', 'altoCargo1', 'altoCargo1', 3, 'admin@gmail.com', 'Navarro', 'Gallardo');
 INSERT INTO USER (id, flag_active, name, nickname, password, user_type, email, first_last_name, second_last_name) VALUES (3, 1, 'Juan', 'altoCargo2', 'altoCargo2', 3, 'admin@gmail.com', 'Del Pozo', 'Gonzalez');
 INSERT INTO USER (id, flag_active, name, nickname, password, user_type, email, first_last_name, second_last_name) VALUES (4, 1, 'Fernando', 'bajoCargo1', 'bajoCargo1', 2, 'admin@gmail.com', 'Rodriguez', 'Velazquez');
@@ -29,5 +29,5 @@ INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (26, '
 INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (27, '20220318', 8, 1, 80);
 INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (28, '20220618', 8, 1, 80);
 INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (29, '20220818', 8, 1, 80);
-INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (30, '20220818', 8, 1, 80);
+INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (30, '20220818', 8, 1, 80);*/
 //

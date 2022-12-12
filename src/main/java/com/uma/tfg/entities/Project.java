@@ -30,6 +30,7 @@ public class Project {
     private String description;
     private Double priority;
     private LocalDate creationDate;
+    private Integer flagActive;
     
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "project")
     @JsonIgnoreProperties(value= {"comments", "images", "creator", "assignedUsers", "project", "activities"}, allowSetters=true)
@@ -134,6 +135,13 @@ public class Project {
 
 	public void setCreationDate(LocalDate creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public Integer getFlagActive() {
+		return flagActive;
+	}
+
+	public void setFlagActive(Integer flagActive) {
+		this.flagActive = flagActive;
 	}	
-	
 }

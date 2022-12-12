@@ -23,6 +23,7 @@ public class Product {
     private Double price;
     private Double rating;
     private Boolean forSale;
+    private Integer flagActive;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"id" , "product"}, allowSetters=true)
@@ -225,4 +226,13 @@ public class Product {
 	public void setCreationDate(LocalDate creationDate) {
 		this.creationDate = creationDate;
 	}
+
+	public Integer getFlagActive() {
+		return flagActive;
+	}
+
+	public void setFlagActive(Integer flagActive) {
+		this.flagActive = flagActive;
+	}
+	
 }

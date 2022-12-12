@@ -24,6 +24,7 @@ public class New {
 	private String sortDescription;
 	private String title;
     private LocalDate creationDate;
+    private Integer flagActive;
     @Lob
     @Column
 	private String description;
@@ -114,6 +115,14 @@ public class New {
 
 	public void setCardImage(String cardImage) {
 		this.cardImage = cardImage;
+	}
+
+	public Integer getFlagActive() {
+		return flagActive;
+	}
+
+	public void setFlagActive(Integer flagActive) {
+		this.flagActive = flagActive;
 	}
 	
 }

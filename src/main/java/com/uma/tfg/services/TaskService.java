@@ -182,7 +182,7 @@ public class TaskService {
     }
 
     public List<Task> getAll(){
-        return (List<Task>) taskRepository.findAll();
+        return (List<Task>) taskRepository.findAllByFlagActive(1);
     }
 
     public Task getTask(Long id) throws Exception{
@@ -194,15 +194,25 @@ public class TaskService {
     }
     
     public List<Task> getTasksAssignedUser(User user) {
-        return (List<Task>) taskRepository.findByAssignedUsers(user);
+        return (List<Task>) taskRepository.findByAssignedUsersAndFlagActive(user, 1);
     }
     
     public List<Task> getTasksByProject(Project project) {
-        return (List<Task>) taskRepository.findByProject(project);
+        return (List<Task>) taskRepository.findByProjectAndFlagActive(project,1);
     }
 
     public void delete(Long id) throws Exception{
-        taskRepository.deleteById(id);
+    	Optional<Task> task = taskRepository.findById(id);
+
+    	task.get().setFlagActive(0);
+    	
+    	task.get().getActivities().forEach((activityRelated)->{
+    		activityRepository.setFlagActive(0, activityRelated.getId());
+    	});
+
+    	task.get().setFlagActive(0);
+    	
+    	taskRepository.save(task.get());
     }
     
     public void addEmployeeToTask(Task task, Long id) throws Exception{

@@ -18,6 +18,7 @@ public class Mail {
     private String writerName;
     private String receiverName;
     private boolean saw;
+    private Integer flagActive;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"writtenMails"}, allowSetters=true)
@@ -123,5 +124,21 @@ public class Mail {
 
 	public void setSaw(boolean saw) {
 		this.saw = saw;
+	}
+
+	public Integer getFlagActive() {
+		return flagActive;
+	}
+
+	public void setFlagActive(Integer flagActive) {
+		this.flagActive = flagActive;
+	}
+
+	public Set<Activity> getActivities() {
+		return activities;
+	}
+
+	public void setActivities(Set<Activity> activities) {
+		this.activities = activities;
 	}
 }
