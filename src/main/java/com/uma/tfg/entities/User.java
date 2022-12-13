@@ -46,6 +46,10 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver")
     @JsonIgnoreProperties(value= {"writer" , "receiver"}, allowSetters=true)
     private Set<Mail> receivedMails;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rater")
+    @JsonIgnoreProperties(value= {"writer" , "receiver"}, allowSetters=true)
+    private Set<ProductRate> rates;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer")
     @JsonIgnoreProperties(value= {"writer" , "receiver"}, allowSetters=true)
@@ -366,6 +370,14 @@ public class User {
 
 	public void setActivitiesCreated(Set<Activity> activitiesCreated) {
 		this.activitiesCreated = activitiesCreated;
+	}
+	
+	public Set<ProductRate> getRates() {
+		return rates;
+	}
+
+	public void setRates(Set<ProductRate> rates) {
+		this.rates = rates;
 	}
 
 	@Override

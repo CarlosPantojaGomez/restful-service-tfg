@@ -29,5 +29,15 @@ INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (26, '
 INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (27, '20220318', 8, 1, 80);
 INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (28, '20220618', 8, 1, 80);
 INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (29, '20220818', 8, 1, 80);
-INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (30, '20220818', 8, 1, 80);*/
+INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (30, '20220818', 8, 1, 80);
+
+
+INSERT INTO PRODUCT (id, name, price) VALUES (31, 'Producto de prueba 2', 90);
+
+INSERT INTO PRODUCT_RATE (id, rate, product_id, rater_id) VALUES (32, 5, 8, 2);
+INSERT INTO PRODUCT_RATE (id, rate, product_id, rater_id) VALUES (33, 4, 8, 2);
+INSERT INTO PRODUCT_RATE (id, rate, product_id, rater_id) VALUES (34, 3, 8, 2);
+INSERT INTO PRODUCT_RATE (id, rate, product_id, rater_id) VALUES (35, 2, 8, 2);
+INSERT INTO PRODUCT_RATE (id, rate, product_id, rater_id) VALUES (36, 1, 8, 2);
+INSERT INTO PRODUCT_RATE (id, rate, product_id, rater_id) VALUES (37, 3.5, 8, 2);*/
 //

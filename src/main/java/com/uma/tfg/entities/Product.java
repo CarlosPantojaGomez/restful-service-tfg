@@ -39,6 +39,9 @@ public class Product {
     private Set<ProductComment> comments;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private Set<ProductRate> rates;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     @JsonIgnoreProperties(value= {"product"}, allowSetters=true)
     private Set<Manual> manuals;
 
@@ -234,5 +237,12 @@ public class Product {
 	public void setFlagActive(Integer flagActive) {
 		this.flagActive = flagActive;
 	}
-	
+
+	public Set<ProductRate> getRates() {
+		return rates;
+	}
+
+	public void setRates(Set<ProductRate> rates) {
+		this.rates = rates;
+	}
 }
