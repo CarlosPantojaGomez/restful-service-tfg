@@ -19,6 +19,9 @@ public class Product {
     @Column
     private String description;
     @Lob
+    @Column
+    private String sortDescription;
+    @Lob
     private String features;
     private Double price;
     private Double rating;
@@ -245,4 +248,13 @@ public class Product {
 	public void setRates(Set<ProductRate> rates) {
 		this.rates = rates;
 	}
+
+	public String getSortDescription() {
+		return sortDescription;
+	}
+
+	public void setSortDescription(String sortDescription) {
+		this.sortDescription = sortDescription;
+	}
+	
 }

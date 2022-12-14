@@ -5,10 +5,14 @@ import com.uma.tfg.entities.Manual;
 import com.uma.tfg.entities.Product;
 import com.uma.tfg.entities.ProductImage;
 import com.uma.tfg.entities.ProductRequest;
+import com.uma.tfg.entities.User;
 import com.uma.tfg.services.FileService;
 import com.uma.tfg.services.ManualService;
 import com.uma.tfg.services.ProductImageService;
 import com.uma.tfg.services.ProductService;
+import com.uma.tfg.services.ProjectService;
+import com.uma.tfg.services.TaskService;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -23,18 +27,22 @@ public class ProductController {
     private final ProductImageService productImageService;
     private final FileService fileService;
     private final ManualService manualService;
+	private final TaskService taskService;
+	private final ProjectService projectService;
 
-    public ProductController(ProductService productService, ProductImageService productImageService, FileService fileService, ManualService manualService) { 
+    public ProductController(ProductService productService, ProductImageService productImageService, FileService fileService, ManualService manualService, TaskService taskService, ProjectService projectService) { 
     	this.productService = productService; 
     	this.productImageService = productImageService;
     	this.fileService = fileService;
     	this.manualService = manualService;
+    	this.taskService = taskService;
+    	this.projectService = projectService;
 	}
 
     @PostMapping("/product")
     public void createProduct(@RequestBody ProductRequest request) throws Exception {
         Product prod = productService.createProduct(request.getProduct());
-        
+        prod.setFlagActive(1);
         if (request.getProfileImage() != null) {
     		request.getProfileImage().setProduct(prod);
         	ProductImage profileImage = productImageService.createProductImage(request.getProfileImage());
@@ -109,6 +117,7 @@ public class ProductController {
     	prod.setDescription(request.getProduct().getDescription());
     	prod.setForSale(request.getProduct().getForSale());
     	prod.setFeatures(request.getProduct().getFeatures());
+    	prod.setSortDescription(request.getProduct().getSortDescription());
         
         
     	if (request.getProfileImage() != null) {
@@ -127,7 +136,7 @@ public class ProductController {
     	List<ProductImage> productImages =  productImageService.findByImageTypeAndProduct(2, prod);
     	
 		productImages.forEach((image)->{
-        	System.out.println(image.getId());
+        	System.out.println("Id de la imagen "+image.getId());
 			try {
 				productImageService.delete(image.getId());
 			} catch (Exception e) {
@@ -214,6 +223,36 @@ public class ProductController {
 
     @DeleteMapping("/product/delete/{id}")
     public void deleteProduct(@PathVariable Long id) throws Exception {
+
+    	Product p = productService.getProduct(id);
+    	
+    	Set<User> usersRelated = new HashSet<>();
+		if(p.getProjects() != null) {
+			p.getProjects().forEach((project)->{
+
+				if(project.getTasks() != null) {
+					project.getTasks().forEach((task)->{
+						try {
+							taskService.delete(task.getId());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+			    	});
+				}
+				
+				try {
+					projectService.delete(project.getId());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+	    	});
+		}
+
+		p.setBuyers(usersRelated);
+		
         productService.delete(id);
     }
 }

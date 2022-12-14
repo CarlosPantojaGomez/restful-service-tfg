@@ -4,11 +4,11 @@ INSERT INTO USER (id, flag_active, name, nickname, password, user_type, email, f
 INSERT INTO USER (id, flag_active, name, nickname, password, user_type, email, first_last_name, second_last_name) VALUES (4, 1, 'Fernando', 'bajoCargo1', 'bajoCargo1', 2, 'admin@gmail.com', 'Rodriguez', 'Velazquez');
 INSERT INTO USER (id, flag_active, name, nickname, password, user_type, email, first_last_name, second_last_name) VALUES (5, 1, 'Ale', 'bajoCargo2', 'bajoCargo2', 2, 'admin@gmail.com', 'Vicaria', 'Ramirez');
 INSERT INTO USER (id, flag_active, name, nickname, password, user_type, email, first_last_name, second_last_name) VALUES (6, 1, 'Miguel', 'usuario1', 'usuario1', 1, 'admin@gmail.com', 'Gomez', 'Castillo');
-INSERT INTO USER (id, flag_active, name, nickname, password, user_type, email, first_last_name, second_last_name) VALUES (7, 1, 'Jose', 'usuario2', 'usuario2', 1, 'admin@gmail.com', 'Ferreras', 'Muñoz');
+INSERT INTO USER (id, flag_active, name, nickname, password, user_type, email, first_last_name, second_last_name) VALUES (7, 1, 'Jose', 'usuario2', 'usuario2', 1, 'admin@gmail.com', 'Ferreras', 'Muñoz');*/
 
-INSERT INTO PRODUCT (id, name, price) VALUES (8, 'Producto de prueba 1', 80);
+/*INSERT INTO PRODUCT (id, name, price, flag_active) VALUES (8, 'Producto de prueba 1', 80, 1);*/
 
-INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (9, '20220118', 8, 1, 80);
+/*INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (9, '20220118', 8, 1, 80);
 INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (10, '20220218', 8, 1, 80);
 INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (11, '20220318', 8, 1, 80);
 INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (12, '20220418', 8, 1, 80);
@@ -29,12 +29,12 @@ INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (26, '
 INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (27, '20220318', 8, 1, 80);
 INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (28, '20220618', 8, 1, 80);
 INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (29, '20220818', 8, 1, 80);
-INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (30, '20220818', 8, 1, 80);
+INSERT INTO BILL (id, sale_date, product_id, user_id, gross_value) VALUES (30, '20220818', 8, 1, 80);*/
 
 
-INSERT INTO PRODUCT (id, name, price) VALUES (31, 'Producto de prueba 2', 90);
+/*INSERT INTO PRODUCT (id, name, price, flag_active) VALUES (31, 'Producto de prueba 2', 90, 1);*/
 
-INSERT INTO PRODUCT_RATE (id, rate, product_id, rater_id) VALUES (32, 5, 8, 2);
+/*INSERT INTO PRODUCT_RATE (id, rate, product_id, rater_id) VALUES (32, 5, 8, 2);
 INSERT INTO PRODUCT_RATE (id, rate, product_id, rater_id) VALUES (33, 4, 8, 2);
 INSERT INTO PRODUCT_RATE (id, rate, product_id, rater_id) VALUES (34, 3, 8, 2);
 INSERT INTO PRODUCT_RATE (id, rate, product_id, rater_id) VALUES (35, 2, 8, 2);
