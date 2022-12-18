@@ -46,7 +46,7 @@ public class ProductService {
     		activityRepository.setFlagActive(0, activityRelated.getId());
     	});
     	
-    	p.get().getNews().forEach((newRelated)->{
+    	p.get().getRelatedNews().forEach((newRelated)->{
     		newRepository.setFlagActive(0, newRelated.getId());
     	});
     	
@@ -54,4 +54,8 @@ public class ProductService {
     	
     	productRepository.save(p.get());
     }
+    
+    public List<Product> getcoincidencesByName(String input){
+        return (List<Product>) productRepository.getCoincidencesByName(input);
+    } 
 }

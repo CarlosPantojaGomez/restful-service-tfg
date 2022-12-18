@@ -84,10 +84,10 @@ public class UserService {
     
     public void addProductToCest(UserRequest request) throws Exception{
     	
-    	Set<Product>cest = request.getUser().getBoughtProducts();
+    	Set<Product>cest = request.getUser().getProductsBought();
     	cest.add(request.getProduct());
     	
-    	request.getUser().setBoughtProducts(cest);
+    	request.getUser().setProductsBought(cest);
     	
         userRepository.save(request.getUser());
     }

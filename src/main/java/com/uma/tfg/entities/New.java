@@ -1,6 +1,7 @@
 package com.uma.tfg.entities;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,7 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -32,9 +36,13 @@ public class New {
     @Lob
     private String cardImage;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects"}, allowSetters=true)
-    private Product product;
+    @JoinTable(
+            name = "new_product_related",
+            joinColumns = @JoinColumn(name = "new_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private Set<Product> productsRelated;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects"}, allowSetters=true)
@@ -85,14 +93,6 @@ public class New {
         this.description = description;
     }
 
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
 	public User getCreator() {
 		return creator;
 	}
@@ -124,5 +124,12 @@ public class New {
 	public void setFlagActive(Integer flagActive) {
 		this.flagActive = flagActive;
 	}
-	
+
+	public Set<Product> getProductsRelated() {
+		return productsRelated;
+	}
+
+	public void setProductsRelated(Set<Product> productsRelated) {
+		this.productsRelated = productsRelated;
+	}
 }

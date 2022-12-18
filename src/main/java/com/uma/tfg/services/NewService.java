@@ -1,8 +1,10 @@
 package com.uma.tfg.services;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -30,11 +32,19 @@ public class NewService {
     private UserRepository userRepository;
 	
 	public void createNew(New new1) {
-		if(new1.getProduct() != null) {
-			if(new1.getProduct().getId() != null) {
-				Optional<Product> auxProd = productRepository.findById(new1.getProduct().getId());
-				new1.setProduct(auxProd.get());
-	    	}
+		if(new1.getProductsRelated() != null) {
+
+	        Set<Product> products = new HashSet<>();
+	        
+			new1.getProductsRelated().forEach((product)->{
+				if(product.getId() != null) {
+					Optional<Product> auxProd = productRepository.findById(product.getId());
+					products.add(auxProd.get());
+		    	}
+	    	});
+			
+			new1.setProductsRelated(products);
+			
     	}
 		
 		User creator = userRepository.findByNicknameAndFlagActive(new1.getCreator().getNickname(), 1);

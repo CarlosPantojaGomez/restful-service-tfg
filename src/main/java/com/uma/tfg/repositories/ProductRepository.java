@@ -17,4 +17,7 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 	@Query("update Product product set product.flagActive = :flagActive where product.id = :id")
     void setFlagActive(@Param("flagActive") Integer flagActive, @Param("id") Long id);
 
+	 @Query( value = "select top (6) * from Product product Where product.name like %:input% and product.flag_active = 1", nativeQuery = true)
+	List<Product> getCoincidencesByName(@Param("input") String input);
+	 
 }

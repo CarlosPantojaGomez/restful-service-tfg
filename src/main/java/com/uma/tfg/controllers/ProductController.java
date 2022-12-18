@@ -220,7 +220,12 @@ public class ProductController {
     public List<Product> all() {
         return productService.getAll();
     }
-
+    
+    @GetMapping("/products/findByName/{input}")
+    public List<Product> getcoincidencesByName(@PathVariable String input) throws Exception {
+        return productService.getcoincidencesByName(input);
+    }
+    
     @DeleteMapping("/product/delete/{id}")
     public void deleteProduct(@PathVariable Long id) throws Exception {
 

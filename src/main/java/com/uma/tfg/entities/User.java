@@ -314,15 +314,6 @@ public class User {
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
-
-	public Set<Product> getBoughtProducts() {
-		return productsBought;
-	}
-
-	public void setBoughtProducts(Set<Product> productsBought) {
-		this.productsBought = productsBought;
-	}
-
 	
 	public Set<New> getCreatedNews() {
 		return createdNews;
@@ -380,6 +371,7 @@ public class User {
 		this.rates = rates;
 	}
 
+	
 	@Override
     public String toString() {
         return "User{" +

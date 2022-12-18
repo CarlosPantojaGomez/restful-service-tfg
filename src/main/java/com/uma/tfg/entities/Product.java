@@ -32,11 +32,12 @@ public class Product {
     @JsonIgnoreProperties(value= {"id" , "product"}, allowSetters=true)
     private File file;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private Set<Bill> bills;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "creator")
-    private Set<New> news;
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "productsRelated")
+    @JsonIgnoreProperties(value= {"productsRelated", "creator"}, allowSetters=true)
+    private Set<New> relatedNews;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private Set<ProductComment> comments;
@@ -66,8 +67,9 @@ public class Product {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_buyer",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JsonIgnoreProperties(value= {"tasksComments", "file", "bills", "manuals", "profileImage", "images", "projects", "projectsAssigned", "activitiesRelated", "productsBought", "createdTasks", "createdNews", "assignedTasks", "activitiesCreated", "productsComments", "projectsCreated", "rates", "receivedMails", "writtenMails"}, allowSetters=true)
     private Set<User> buyers;
 
     public Product() {}
@@ -217,14 +219,6 @@ public class Product {
 		this.activities = activities;
 	}
 
-	public Set<New> getNews() {
-		return news;
-	}
-
-	public void setNews(Set<New> news) {
-		this.news = news;
-	}
-
 	public LocalDate getCreationDate() {
 		return creationDate;
 	}
@@ -255,6 +249,14 @@ public class Product {
 
 	public void setSortDescription(String sortDescription) {
 		this.sortDescription = sortDescription;
+	}
+
+	public Set<New> getRelatedNews() {
+		return relatedNews;
+	}
+
+	public void setRelatedNews(Set<New> relatedNews) {
+		this.relatedNews = relatedNews;
 	}
 	
 }
