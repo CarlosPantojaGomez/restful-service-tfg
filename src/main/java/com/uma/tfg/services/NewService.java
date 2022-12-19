@@ -65,4 +65,8 @@ public class NewService {
     public void delete(Long id) throws Exception {
     	newRepository.deleteById(id);
     }
+    
+    public List<New> getNewsByProductId(String productId){
+    	return newRepository.getNewsByProduct(productId);
+    }
 }

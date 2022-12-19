@@ -37,6 +37,11 @@ public class NewController {
     public New getNew(@PathVariable Long id) throws Exception {
         return newService.getNew(id);
     }
+    
+    @GetMapping("/news/{productId}")
+    public List<New> getNewsByProductId(@PathVariable String productId) throws Exception {
+        return newService.getNewsByProductId(productId);
+    }
 
     @GetMapping("/news")
     public List<New> all() {

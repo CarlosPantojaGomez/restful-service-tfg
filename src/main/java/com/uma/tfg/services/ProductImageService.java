@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -47,6 +48,11 @@ public class ProductImageService {
     }
     
     public void delete(Long id) throws Exception {
+    	Optional<ProductImage> pr = productImageRepository.findById(id);
+    	pr.get().setProduct(null);
+    	
+    	productImageRepository.save(pr.get());
+    	
     	productImageRepository.deleteById(id);
     }
 }

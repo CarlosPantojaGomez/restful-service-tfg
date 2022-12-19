@@ -29,10 +29,11 @@ public class Product {
     private Integer flagActive;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JsonIgnoreProperties(value= {"id" , "product"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"id", "product", "manual"}, allowSetters=true)
     private File file;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    @JsonIgnoreProperties(value= {"user", "product"}, allowSetters=true)
     private Set<Bill> bills;
     
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "productsRelated")
@@ -46,7 +47,7 @@ public class Product {
     private Set<ProductRate> rates;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-    @JsonIgnoreProperties(value= {"product"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"product", "file"}, allowSetters=true)
     private Set<Manual> manuals;
 
     @OneToOne(cascade = CascadeType.ALL)

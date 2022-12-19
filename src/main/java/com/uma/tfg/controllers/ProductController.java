@@ -121,6 +121,8 @@ public class ProductController {
         
         
     	if (request.getProfileImage() != null) {
+
+        	System.out.println(prod.getId());
     		request.getProfileImage().setProduct(prod);
     		request.getProfileImage().setImageType(1);
     		
