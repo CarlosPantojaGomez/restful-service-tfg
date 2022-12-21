@@ -72,6 +72,10 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     @JsonIgnoreProperties(value= {"tasksComments", "file", "bills", "manuals", "profileImage", "images", "projects", "projectsAssigned", "activitiesRelated", "productsBought", "createdTasks", "createdNews", "assignedTasks", "activitiesCreated", "productsComments", "projectsCreated", "rates", "receivedMails", "writtenMails"}, allowSetters=true)
     private Set<User> buyers;
+    
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    @JsonIgnoreProperties(value= {"products"}, allowSetters=true)
+    private Set<Basket> baskets;
 
     public Product() {}
 
@@ -259,5 +263,12 @@ public class Product {
 	public void setRelatedNews(Set<New> relatedNews) {
 		this.relatedNews = relatedNews;
 	}
-	
+
+	public Set<Basket> getBaskets() {
+		return baskets;
+	}
+
+	public void setBaskets(Set<Basket> baskets) {
+		this.baskets = baskets;
+	}
 }

@@ -1,5 +1,6 @@
 package com.uma.tfg.controllers;
 
+import com.uma.tfg.entities.ProductBasketRequest;
 import com.uma.tfg.entities.User;
 import com.uma.tfg.entities.UserRequest;
 import com.uma.tfg.services.UserService;
@@ -35,6 +36,16 @@ public class UserController {
     @PutMapping("/user")
     public void updateUser(@RequestBody User user) throws Exception {
         userService.createUser(user);
+    }
+    
+    @PutMapping("/user/basket")
+    public void addProductToBasket(@RequestBody ProductBasketRequest request) throws Exception {
+        userService.addProductToBasket(request);
+    }
+    
+    @DeleteMapping("/user/basket/{productId}/{userId}")
+    public void removeProductFromBasket(@PathVariable String productId, @PathVariable String userId) throws Exception {
+        userService.removeProductFromBasket(productId, userId);
     }
 
     @PutMapping("/userDelete/{id}")

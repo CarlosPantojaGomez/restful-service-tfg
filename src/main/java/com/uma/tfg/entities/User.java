@@ -98,6 +98,10 @@ public class User {
     @JoinColumn(name="user_gender")
     private Gender gender;
     
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value= {"user"}, allowSetters=true)
+    private Basket basket;
+    
     public User() {}
 
     public User(String name, String firstLastName, String secondLastName, String email, String nickname, String password, String profilePicture, Integer userType, Integer flagActive, Long idCountry, String nameCountry, Long idGender, String gender) {
@@ -373,8 +377,15 @@ public class User {
 	public void setRates(Set<ProductRate> rates) {
 		this.rates = rates;
 	}
+		
+	public Basket getBasket() {
+		return basket;
+	}
 
-	
+	public void setBasket(Basket basket) {
+		this.basket = basket;
+	}
+
 	@Override
     public String toString() {
         return "User{" +
