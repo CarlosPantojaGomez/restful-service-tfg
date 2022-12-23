@@ -32,7 +32,7 @@ public class Product {
     @JsonIgnoreProperties(value= {"id", "product", "manual"}, allowSetters=true)
     private File file;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     @JsonIgnoreProperties(value= {"user", "product"}, allowSetters=true)
     private Set<Bill> bills;
     

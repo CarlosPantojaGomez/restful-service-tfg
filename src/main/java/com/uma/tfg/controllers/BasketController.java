@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uma.tfg.entities.Basket;
+import com.uma.tfg.entities.PurchaseRequest;
 import com.uma.tfg.services.BasketService;
 
 @RestController
@@ -36,6 +37,11 @@ private final BasketService basketService;
     @PutMapping("/basket")
     public void updateBasket(@RequestBody Basket basket) throws Exception {
     	basketService.updateBasket(basket);
+    }
+    
+    @PutMapping("/basket/buy")
+    public void buyProducts(@RequestBody PurchaseRequest basket) throws Exception {
+    	basketService.buyProducts(basket);
     }
     
     @DeleteMapping("/basket/delete/{id}")

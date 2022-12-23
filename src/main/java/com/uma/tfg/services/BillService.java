@@ -32,7 +32,7 @@ public class BillService {
     public List<Bill> getBillsForProduct(Long productId) {
     	Optional<Product> product = productRepository.findById(productId);
     	
-        return (List<Bill>) billRepository.findByProduct(product.get());
+        return (List<Bill>) billRepository.findByProducts(product.get());
     }
     
     public void delete(Long id) throws Exception {
