@@ -65,11 +65,7 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private Set<Project> projects;
     
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "user_buyer",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "productsBought")
     @JsonIgnoreProperties(value= {"tasksComments", "file", "bills", "manuals", "profileImage", "images", "projects", "projectsAssigned", "activitiesRelated", "productsBought", "createdTasks", "createdNews", "assignedTasks", "activitiesCreated", "productsComments", "projectsCreated", "rates", "receivedMails", "writtenMails"}, allowSetters=true)
     private Set<User> buyers;
     

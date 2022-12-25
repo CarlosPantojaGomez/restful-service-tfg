@@ -89,11 +89,12 @@ public class BasketService {
     	basketRepository.delete(basket.get());
     }
     
-    public Basket buyProducts(PurchaseRequest request) {
+    public Basket buyProducts(PurchaseRequest request) throws InterruptedException {
     	//GET NECESARY DATA
     	Optional<Basket> basket = basketRepository.findById(request.getBasket().getId());
     	Optional<User> user = userRepository.findById(request.getBasket().getUser().getId());
-    	
+
+		
     	//ADD PRODUCTS BOUGHT TO USER
     	Set<Product> products = user.get().getProductsBought();
     	products.addAll(basket.get().getProducts());
@@ -103,27 +104,18 @@ public class BasketService {
     	userRepository.save(user.get());
 
     	totalAmount = 0.0;
-    	System.out.println("Size "+basket.get().getProducts().size());
-    	basket.get().getProducts().forEach((product)->{
-    		Set<User> buyers = product.getBuyers();
-    		System.out.println(buyers.size());
-    		buyers.add(user.get());
-    		System.out.println(buyers.size());
-    		
-    		product.setBuyers(buyers);
+    	
+    	request.getBasket().getProducts().forEach((product)->{
+			if(!product.equals(null)) {
 
-    		productRepository.save(product);
-    		System.out.println(product.toString());
+				final Double precioProduct = product.getPrice();
+				
+				totalAmount += precioProduct;
+			}
     		
-
-			final Double precioProduct = product.getPrice();
-			
-			totalAmount += precioProduct;
 
     		
     	});
-
-    	System.out.println("Size "+basket.get().getProducts().size());
     	//CREATE BILL
     	Bill bill = new Bill();
     	
@@ -148,6 +140,7 @@ public class BasketService {
     	bill.setUser(user.get());
     	
     	billRepository.save(bill);
+    	
 
     	Set<Bill> bills = user.get().getBills();
     	bills.add(bill);
@@ -156,10 +149,11 @@ public class BasketService {
     	userRepository.save(user.get());
     	
     	//CLEAN BASKET
-    	//deleteBasket(basket.get().getId());
+    	deleteBasket(basket.get().getId());
     	
     	user.get().setBasket(null);
     	userRepository.save(user.get());
+
     	
     	return basket.get();
     }
