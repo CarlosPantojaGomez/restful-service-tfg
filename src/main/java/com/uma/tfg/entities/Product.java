@@ -47,7 +47,7 @@ public class Product {
     private Set<ProductRate> rates;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-    @JsonIgnoreProperties(value= {"product", "file"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"product"}, allowSetters=true)
     private Set<Manual> manuals;
 
     @OneToOne(cascade = CascadeType.ALL)

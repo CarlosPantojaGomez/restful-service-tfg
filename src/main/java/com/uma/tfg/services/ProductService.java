@@ -1,7 +1,9 @@
 package com.uma.tfg.services;
 
+import com.uma.tfg.entities.File;
 import com.uma.tfg.entities.Product;
 import com.uma.tfg.repositories.ActivityRepository;
+import com.uma.tfg.repositories.FileRepository;
 import com.uma.tfg.repositories.NewRepository;
 import com.uma.tfg.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class ProductService {
     private ActivityRepository activityRepository;
     @Autowired
     private NewRepository newRepository;
+    @Autowired
+    private FileRepository fileRepository;
 
     public Product createProduct(Product product) {
         return productRepository.save(product);
@@ -33,6 +37,14 @@ public class ProductService {
 
     public Product getProduct(Long id) throws Exception{
         return productRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    }
+    
+    public File getProductFile(Long id) throws Exception{
+        Product pr = productRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        
+        Optional<File> file = fileRepository.findById(pr.getFile().getId());
+        
+        return file.get();
     }
 
     public List<Product> getAll(){

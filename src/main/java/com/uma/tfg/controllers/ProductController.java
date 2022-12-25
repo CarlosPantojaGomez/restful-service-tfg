@@ -228,6 +228,12 @@ public class ProductController {
         return productService.getcoincidencesByName(input);
     }
     
+    @GetMapping("/product/download/{id}")
+    public File getFileProduct(@PathVariable Long id) throws Exception {
+        return productService.getProductFile(id);
+    }
+    
+    
     @DeleteMapping("/product/delete/{id}")
     public void deleteProduct(@PathVariable Long id) throws Exception {
 

@@ -42,8 +42,19 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void updateUser(User user) {
-    	userRepository.save(user);
+    public void updateUser(User usr) {
+    	Optional<User> user = userRepository.findById(usr.getId());
+    	
+    	user.get().setAddress(usr.getAddress());
+    	user.get().setCity(usr.getCity());
+    	user.get().setName(usr.getName());
+    	user.get().setFirstLastName(usr.getFirstLastName());
+    	user.get().setSecondLastName(usr.getSecondLastName());
+    	user.get().setProfilePicture(usr.getProfilePicture());
+    	user.get().setTlf(usr.getTlf());
+    	user.get().setZipcode(usr.getZipcode());
+    	
+    	userRepository.save(user.get());
     }
     
     public Basket addProductToBasket(ProductBasketRequest request) {

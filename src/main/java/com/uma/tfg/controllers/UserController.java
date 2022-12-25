@@ -32,7 +32,7 @@ public class UserController {
 
     @PutMapping("/user")
     public void updateUser(@RequestBody User user) throws Exception {
-        userService.createUser(user);
+        userService.updateUser(user);
     }
     
     @PutMapping("/user/basket")
