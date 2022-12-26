@@ -41,6 +41,7 @@ public class Product {
     private Set<New> relatedNews;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    @JsonIgnoreProperties(value= {"product"}, allowSetters=true)
     private Set<ProductComment> comments;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")

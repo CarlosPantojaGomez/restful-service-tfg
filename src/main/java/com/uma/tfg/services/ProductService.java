@@ -1,9 +1,11 @@
 package com.uma.tfg.services;
 
 import com.uma.tfg.entities.File;
+import com.uma.tfg.entities.Manual;
 import com.uma.tfg.entities.Product;
 import com.uma.tfg.repositories.ActivityRepository;
 import com.uma.tfg.repositories.FileRepository;
+import com.uma.tfg.repositories.ManualRepository;
 import com.uma.tfg.repositories.NewRepository;
 import com.uma.tfg.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,11 @@ import org.springframework.stereotype.Service;
 import payroll.UserNotFoundException;
 
 import javax.transaction.Transactional;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -26,6 +31,8 @@ public class ProductService {
     private NewRepository newRepository;
     @Autowired
     private FileRepository fileRepository;
+    @Autowired
+    private ManualRepository manualRepository;
 
     public Product createProduct(Product product) {
         return productRepository.save(product);
@@ -45,6 +52,24 @@ public class ProductService {
         Optional<File> file = fileRepository.findById(pr.getFile().getId());
         
         return file.get();
+    }
+    
+    public Set<Manual> getProductManuals(Long id) throws Exception{
+        Product pr = productRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+
+    	Set<Manual> manuals = new HashSet<>();
+    	
+        if(pr.getManuals() != null) {
+        	pr.getManuals().forEach((manual)->{
+        		Optional<Manual> man = manualRepository.findById(manual.getId());
+        		
+        		manuals.add(man.get());
+        	});
+        	
+        	return manuals;
+        } else {
+        	return null;
+        }
     }
 
     public List<Product> getAll(){

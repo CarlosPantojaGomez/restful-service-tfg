@@ -233,6 +233,10 @@ public class ProductController {
         return productService.getProductFile(id);
     }
     
+    @GetMapping("/product/manuals/{id}")
+    public  Set<Manual> getProductManuals(@PathVariable Long id) throws Exception {
+        return productService.getProductManuals(id);
+    }
     
     @DeleteMapping("/product/delete/{id}")
     public void deleteProduct(@PathVariable Long id) throws Exception {

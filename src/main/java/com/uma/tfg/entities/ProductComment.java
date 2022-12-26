@@ -1,6 +1,9 @@
 package com.uma.tfg.entities;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.time.LocalDate;
 
 @Entity
@@ -13,6 +16,7 @@ public class ProductComment {
     private String text;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects", "tasksComments"}, allowSetters=true)
     private User creator;
 
     @ManyToOne(cascade = CascadeType.ALL)
