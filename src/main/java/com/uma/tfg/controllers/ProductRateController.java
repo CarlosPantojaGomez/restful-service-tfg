@@ -19,7 +19,7 @@ public class ProductRateController {
     	this.productRateService = productRateService; 
 	}
     
-    @PostMapping("/productRate")
+    @PostMapping("/productRatee")
     public void createProduct(@RequestBody ProductRate request) throws Exception {
 
     	productRateService.createProductRate(request);

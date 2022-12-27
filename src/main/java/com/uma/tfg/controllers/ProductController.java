@@ -4,11 +4,13 @@ import com.uma.tfg.entities.File;
 import com.uma.tfg.entities.Manual;
 import com.uma.tfg.entities.Product;
 import com.uma.tfg.entities.ProductImage;
+import com.uma.tfg.entities.ProductRate;
 import com.uma.tfg.entities.ProductRequest;
 import com.uma.tfg.entities.User;
 import com.uma.tfg.services.FileService;
 import com.uma.tfg.services.ManualService;
 import com.uma.tfg.services.ProductImageService;
+import com.uma.tfg.services.ProductRateService;
 import com.uma.tfg.services.ProductService;
 import com.uma.tfg.services.ProjectService;
 import com.uma.tfg.services.TaskService;
@@ -29,14 +31,24 @@ public class ProductController {
     private final ManualService manualService;
 	private final TaskService taskService;
 	private final ProjectService projectService;
+    private final ProductRateService productRateService;
 
-    public ProductController(ProductService productService, ProductImageService productImageService, FileService fileService, ManualService manualService, TaskService taskService, ProjectService projectService) { 
+    public ProductController(
+    		ProductService productService, 
+    		ProductImageService productImageService, 
+    		FileService fileService, 
+    		ManualService manualService, 
+    		TaskService taskService, 
+    		ProjectService projectService, 
+    		ProductRateService productRateService
+	) { 
     	this.productService = productService; 
     	this.productImageService = productImageService;
     	this.fileService = fileService;
     	this.manualService = manualService;
     	this.taskService = taskService;
     	this.projectService = projectService;
+    	this.productRateService = productRateService;
 	}
 
     @PostMapping("/product")
@@ -236,6 +248,16 @@ public class ProductController {
     @GetMapping("/product/manuals/{id}")
     public  Set<Manual> getProductManuals(@PathVariable Long id) throws Exception {
         return productService.getProductManuals(id);
+    }
+    
+    @GetMapping("/product/rate/{productId}/{userId}")
+    public ProductRate getProductRateByUser(@PathVariable Long productId, @PathVariable Long userId) throws Exception {
+        return productService.getProductRateByUser(productId, userId);
+    }
+    
+    @PutMapping("/productRate")
+    public ProductRate createRate(@RequestBody ProductRate rate) throws Exception {
+    	return productRateService.createProductRate(rate);
     }
     
     @DeleteMapping("/product/delete/{id}")

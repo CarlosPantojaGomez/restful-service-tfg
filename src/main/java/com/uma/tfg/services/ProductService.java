@@ -3,13 +3,19 @@ package com.uma.tfg.services;
 import com.uma.tfg.entities.File;
 import com.uma.tfg.entities.Manual;
 import com.uma.tfg.entities.Product;
+import com.uma.tfg.entities.ProductRate;
+import com.uma.tfg.entities.User;
 import com.uma.tfg.repositories.ActivityRepository;
 import com.uma.tfg.repositories.FileRepository;
 import com.uma.tfg.repositories.ManualRepository;
 import com.uma.tfg.repositories.NewRepository;
+import com.uma.tfg.repositories.ProductRateRepository;
 import com.uma.tfg.repositories.ProductRepository;
+import com.uma.tfg.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import payroll.UserNotFoundException;
 
 import javax.transaction.Transactional;
@@ -33,6 +39,10 @@ public class ProductService {
     private FileRepository fileRepository;
     @Autowired
     private ManualRepository manualRepository;
+    @Autowired
+    private ProductRateRepository productRateRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public Product createProduct(Product product) {
         return productRepository.save(product);
@@ -70,6 +80,15 @@ public class ProductService {
         } else {
         	return null;
         }
+    }
+    
+    public ProductRate getProductRateByUser(Long productId, Long userId) throws Exception{
+
+        User rater = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+        Product product = productRepository.findById(productId).orElseThrow(() -> new UserNotFoundException(productId));
+    	ProductRate pr = productRateRepository.findByProductAndRater(product, rater);
+    	
+    	return pr;
     }
 
     public List<Product> getAll(){
