@@ -37,7 +37,7 @@ public class New {
     private String cardImage;
 	
     @ManyToMany(cascade = CascadeType.ALL)
-    @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"file", "bills", "manuals", "images", "projects"}, allowSetters=true)
     @JoinTable(
             name = "new_product_related",
             joinColumns = @JoinColumn(name = "new_id"),

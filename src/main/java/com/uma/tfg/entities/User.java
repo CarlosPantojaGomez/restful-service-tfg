@@ -82,7 +82,7 @@ public class User {
             name = "user_buyer",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id "))
-    @JsonIgnoreProperties(value= {"file" , "bills", "relatedNews", "comments", "rates", "manuals", "profileImage", "images", "projects", "buyers"}, allowSetters=true)
+    @JsonIgnoreProperties(value= {"file" , "bills", "relatedNews", "comments", "rates", "manuals", "images", "projects", "buyers"}, allowSetters=true)
     private Set<Product> productsBought;
     
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "assignedUsers")

@@ -35,6 +35,10 @@ public class BillService {
         return (List<Bill>) billRepository.findByProducts(product.get());
     }
     
+    public Bill getBillByProductAndUser(String productId, String userId) {
+    	return billRepository.getBillByUserAndProduct(productId, userId);
+    }
+    
     public void delete(Long id) throws Exception {
     	billRepository.deleteById(id);
     }

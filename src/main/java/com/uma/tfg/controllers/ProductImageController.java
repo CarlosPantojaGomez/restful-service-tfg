@@ -34,7 +34,7 @@ public class ProductImageController {
         return productImageService.getAll();
     }
     
-    @GetMapping("/productsImageTop")
+    @GetMapping("/productsImageTopp")
     public List<String> top() {
         return productImageService.getTop();
     }

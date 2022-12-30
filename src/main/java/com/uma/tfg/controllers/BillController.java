@@ -24,6 +24,11 @@ public class BillController {
         return billService.getAll();
     }
     
+    @GetMapping("/bill/{productId}/{userId}")
+    public Bill getBillByProductAndUser(@PathVariable String productId, @PathVariable String userId) {
+        return billService.getBillByProductAndUser(productId, userId);
+    }
+    
     @GetMapping("/bills/product/{productId}")
     public List<Bill> getBillsForProduct(@PathVariable String productId) {
     	Long idProduct = Long.parseLong(productId);

@@ -187,18 +187,27 @@ public class ProductController {
         	prod.setFile(null);
         }
 
-        List<Manual> manualsDelete =  manualService.findByProduct(prod);
-        manualsDelete.forEach((manual)->{
+        Set<Manual> manualsDelete =  prod.getManuals();
+        /*manualsDelete.forEach((manual)->{
 			try {
+				
 				manualService.delete(manual.getId());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    	});
+    	});*/
+        
+        System.out.println(request.getManuals().size());
         Set<Manual> manuales = new HashSet<>();
-    	
-    	request.getManuals().forEach((manual)->{
+        prod.getManuals().forEach((manual)->{
+    		manual.setProduct(null);
+
+    		manualService.updateManual(manual);
+    		
+    	});
+
+		request.getManuals().forEach((manual)->{
     		manual.setProduct(prod);
     		File auxManual = fileService.createFile(manual);
     		
@@ -229,6 +238,11 @@ public class ProductController {
     public Product getProduct(@PathVariable Long id) throws Exception {
         return productService.getProduct(id);
     }
+    
+    @GetMapping("/product/rate/{id}")
+    public Double getProductRate(@PathVariable Long id) throws Exception {
+        return productService.getProductRate(id);
+    }
 
     @GetMapping("/products")
     public List<Product> all() {
@@ -248,6 +262,11 @@ public class ProductController {
     @GetMapping("/product/manuals/{id}")
     public  Set<Manual> getProductManuals(@PathVariable Long id) throws Exception {
         return productService.getProductManuals(id);
+    }
+    
+    @GetMapping("/productsImageTop")
+    public  List<Product> productsImageTop() throws Exception {
+        return productService.getTopImages();
     }
     
     @GetMapping("/product/rate/{productId}/{userId}")

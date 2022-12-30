@@ -43,6 +43,8 @@ public class ProductService {
     private ProductRateRepository productRateRepository;
     @Autowired
     private UserRepository userRepository;
+    
+    private Double totalAmount;
 
     public Product createProduct(Product product) {
         return productRepository.save(product);
@@ -54,6 +56,24 @@ public class ProductService {
 
     public Product getProduct(Long id) throws Exception{
         return productRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    }
+    
+    public Double getProductRate(Long id) throws Exception{
+    	Optional<Product> product = productRepository.findById(id);
+    	
+        List<ProductRate> rates = productRateRepository.findByProduct(product.get());
+        
+        if(rates != null && rates.size() > 0) {
+        	totalAmount = 0.0;
+        	
+        	rates.forEach((rate)->{
+				totalAmount += rate.getRate();
+        	});
+        	
+        	return totalAmount/rates.size();
+        } else {
+        	return 0.00;
+        }
     }
     
     public File getProductFile(Long id) throws Exception{
@@ -80,6 +100,10 @@ public class ProductService {
         } else {
         	return null;
         }
+    }
+    
+    public List<Product> getTopImages() throws Exception{
+        return productRepository.getImagesTop();
     }
     
     public ProductRate getProductRateByUser(Long productId, Long userId) throws Exception{
