@@ -1,11 +1,13 @@
 package com.uma.tfg.services;
 
 import com.uma.tfg.entities.Basket;
+import com.uma.tfg.entities.Country;
 import com.uma.tfg.entities.Product;
 import com.uma.tfg.entities.ProductBasketRequest;
 import com.uma.tfg.entities.User;
 import com.uma.tfg.entities.UserRequest;
 import com.uma.tfg.repositories.BasketRepository;
+import com.uma.tfg.repositories.CountryRepository;
 import com.uma.tfg.repositories.ProductRepository;
 import com.uma.tfg.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,8 @@ public class UserService {
     private ProductRepository productRepository;
     @Autowired
     private BasketRepository basketRepository;
+    @Autowired
+    private CountryRepository countryRepository;
 
     private Double totalAmount;
     
@@ -44,6 +48,12 @@ public class UserService {
 
     public void updateUser(User usr) {
     	Optional<User> user = userRepository.findById(usr.getId());
+
+    	if(usr.getCountry() != null) {
+
+        	Optional<Country> country = countryRepository.findById(usr.getCountry().getId());
+        	user.get().setCountry(country.get());
+    	}
     	
     	user.get().setAddress(usr.getAddress());
     	user.get().setCity(usr.getCity());
@@ -53,6 +63,14 @@ public class UserService {
     	user.get().setProfilePicture(usr.getProfilePicture());
     	user.get().setTlf(usr.getTlf());
     	user.get().setZipcode(usr.getZipcode());
+    	
+    	userRepository.save(user.get());
+    }
+    
+    public void updateUserPassword(User usr) {
+    	Optional<User> user = userRepository.findById(usr.getId());
+    	
+    	user.get().setPassword(usr.getPassword());
     	
     	userRepository.save(user.get());
     }

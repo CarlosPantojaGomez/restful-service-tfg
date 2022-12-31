@@ -13,6 +13,8 @@ public class Bill {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
+
+    private String billNumber;
     private LocalDate saleDate;
     private Double iva;
     private Double netValue;
@@ -222,6 +224,14 @@ public class Bill {
 
 	public void setNational_number(String national_number) {
 		this.national_number = national_number;
+	}
+	
+	public String getBillNumber() {
+		return billNumber;
+	}
+
+	public void setBillNumber(String billNumber) {
+		this.billNumber = billNumber;
 	}
 
 	@Override

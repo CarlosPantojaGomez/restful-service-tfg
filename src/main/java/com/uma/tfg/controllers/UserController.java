@@ -35,6 +35,11 @@ public class UserController {
         userService.updateUser(user);
     }
     
+    @PutMapping("/userPassword")
+    public void updateUserPassword(@RequestBody User user) throws Exception {
+        userService.updateUserPassword(user);
+    }
+    
     @PutMapping("/user/basket")
     public void addProductToBasket(@RequestBody ProductBasketRequest request) throws Exception {
         userService.addProductToBasket(request);

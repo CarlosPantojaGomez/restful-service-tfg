@@ -118,7 +118,7 @@ public class BasketService {
     	});
     	//CREATE BILL
     	Bill bill = new Bill();
-    	
+    	bill.setBillNumber(java.util.UUID.randomUUID().toString());
     	bill.setAddress_line_1(request.getAddress_line_1());
     	bill.setAddress_line_2(request.getAddress_line_2());
     	bill.setAdmin_area_1(request.getAdmin_area_1());

@@ -8,6 +8,15 @@ INSERT INTO USER (id, flag_active, name, nickname, password, user_type, email, f
 
 INSERT INTO PRODUCT (id, name, price, flag_active) VALUES (8, 'Producto de prueba 1', 0.01, 1);
 
-INSERT INTO PRODUCT (id, name, price, flag_active) VALUES (31, 'Producto de prueba 2', 0.01, 1);*/
+INSERT INTO PRODUCT (id, name, price, flag_active) VALUES (31, 'Producto de prueba 2', 0.01, 1);
 
+INSERT INTO COUNTRY (id, name) VALUES (1 , 'España');
+INSERT INTO COUNTRY (id, name) VALUES (2 , 'Estados Unidos');
+INSERT INTO COUNTRY (id, name) VALUES (3 , 'Inglaterra');
+INSERT INTO COUNTRY (id, name) VALUES (4 , 'China');
+INSERT INTO COUNTRY (id, name) VALUES (5 , 'Francia');
+INSERT INTO COUNTRY (id, name) VALUES (6 , 'India');
+INSERT INTO COUNTRY (id, name) VALUES (7 , 'Canada');
+INSERT INTO COUNTRY (id, name) VALUES (8 , 'Alemania');
+INSERT INTO COUNTRY (id, name) VALUES (9 , 'Italia');*/
 //

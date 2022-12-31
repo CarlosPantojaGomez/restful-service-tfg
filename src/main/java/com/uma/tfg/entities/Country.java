@@ -13,7 +13,7 @@ public class Country {
     private String name;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "country")
-    private Set<User> user;
+    private Set<User> users;
     
     public Country() {}
 
@@ -38,11 +38,11 @@ public class Country {
 	}
 
 	public Set<User> getUser() {
-		return user;
+		return users;
 	}
 
 	public void setUser(Set<User> user) {
-		this.user = user;
+		this.users = user;
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class Country {
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + ((users == null) ? 0 : users.hashCode());
 		return result;
 	}
 
@@ -74,17 +74,17 @@ public class Country {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (user == null) {
-			if (other.user != null)
+		if (users == null) {
+			if (other.users != null)
 				return false;
-		} else if (!user.equals(other.user))
+		} else if (!users.equals(other.users))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Country [id=" + id + ", name=" + name + ", user=" + user + "]";
+		return "Country [id=" + id + ", name=" + name + ", user=" + users + "]";
 	}
     
     
