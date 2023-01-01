@@ -73,6 +73,13 @@ public class MailService {
         
         return mail;
     }
+    
+    public Mail getWroteMail(Long id) throws Exception{
+        Mail mail = mailRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        
+        
+        return mail;
+    }
 
     public List<Mail> getMailsReceiver(User user) throws Exception{
         return (List<Mail>) mailRepository.findByReceiverOrderByIdDesc(user);

@@ -34,6 +34,11 @@ public class MailController {
     public Mail getMail(@PathVariable Long id) throws Exception {
         return mailService.getMail(id);
     }
+    
+    @GetMapping("/wroteMail/{id}")
+    public Mail getWroteMail(@PathVariable Long id) throws Exception {
+        return mailService.getWroteMail(id);
+    }
 
     @GetMapping("/mails")
     public List<Mail> all() {
@@ -59,7 +64,8 @@ public class MailController {
     @PostMapping("/sendMail/{subject}")
     public void sendEmail(@PathVariable String subject,@RequestBody String text) {
     	SimpleMailMessage mail = new SimpleMailMessage();
-    	mail.setTo("cpgtfgadcom2020@gmail.com");
+    	mail.setTo("tfgCarlos2023@outlook.com");
+    	mail.setFrom("tfgCarlos2023@outlook.com");
     	mail.setSubject(subject);
     	mail.setText(text);
     	

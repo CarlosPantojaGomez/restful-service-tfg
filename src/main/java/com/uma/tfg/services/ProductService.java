@@ -127,8 +127,11 @@ public class ProductService {
     	});
     	
     	p.get().getRelatedNews().forEach((newRelated)->{
-    		newRepository.setFlagActive(0, newRelated.getId());
+    		newRelated.setProductsRelated(null);
+    		newRepository.save(newRelated);
     	});
+    	
+    	p.get().setRelatedNews(null);
     	
     	p.get().setFlagActive(0);
     	

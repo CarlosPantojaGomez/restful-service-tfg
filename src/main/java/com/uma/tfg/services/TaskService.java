@@ -48,8 +48,17 @@ public class TaskService {
     public void updateTask(Task task) {
         Task old = taskRepository.findById(task.getId()).orElseThrow(() -> new UserNotFoundException(task.getId()));
         
+        Set<User> users = new HashSet<>();
+        
+        if(task.getAssignedUsers() != null) {
+        	task.getAssignedUsers().forEach((user)->{
+    			users.add(user);
+        	});
+            task.setAssignedUsers(users);	
+        }else {
+        	task.setAssignedUsers(null);
+        }
 
-        old.setAssignedUsers(task.getAssignedUsers());
         old.setComments(task.getComments());
         old.setCreationDate(task.getCreationDate());
         old.setDescription(task.getDescription());
@@ -65,7 +74,8 @@ public class TaskService {
         taskImages.forEach((image)->{
         	System.out.println(image.getId());
 			try {
-				taskImageRepository.delete(image);
+				image.setTask(null);
+				taskImageRepository.save(image);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -73,18 +83,24 @@ public class TaskService {
     	});
         
         Set<TaskImage> images = new HashSet<>();
-    	
-        task.getImages().forEach((image)->{
-    		image.setTask(task);
-        	TaskImage taskImage = taskImageRepository.save(image); 
-        	images.add(taskImage);
-    	});
+    	if(task.getImages() != null) {
+    		task.getImages().forEach((image)->{
+    			image.setTask(old);
+            	TaskImage taskImage = taskImageRepository.save(image); 
+            	images.add(taskImage);
+        	});
+    		
+            old.setImages(images);
+    	}else {
+
+            old.setImages(null);
+    	}
         
-        old.setImages(images);
+        
         
         taskRepository.save(old);
     	
-    	Activity act = new Activity();
+        Activity act = new Activity();
 
 		User creator = userRepository.findByNicknameAndFlagActive(task.getCreator().getNickname(), 1);
 		
@@ -93,16 +109,16 @@ public class TaskService {
         act.setTask(old);
         act.setCreator(creator);
 
-        Set<User> users = new HashSet<>();
+        Set<User> usersActivity = new HashSet<>();
 		if(old.getAssignedUsers() != null) {
-			users.addAll(old.getAssignedUsers());
+			usersActivity.addAll(old.getAssignedUsers());
 			
 		}
 		if(old.getProject().getUsersRelated() != null) {
-			users.addAll(old.getProject().getUsersRelated());
+			usersActivity.addAll(old.getProject().getUsersRelated());
 		}
 		
-        act.setAssignedUsers(users);
+        act.setAssignedUsers(usersActivity);
         
         activityRepository.save(act);
     }
