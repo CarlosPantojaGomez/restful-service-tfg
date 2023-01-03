@@ -31,21 +31,21 @@ public class Project {
     private Double priority;
     private LocalDate creationDate;
     private Integer flagActive;
-    
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "project")
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
     @JsonIgnoreProperties(value= {"comments", "images", "creator", "assignedUsers", "project", "activities"}, allowSetters=true)
     private Set<Task> tasks;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects"}, allowSetters=true)
     private Product product;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects"}, allowSetters=true)
     private User creator;
     
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "project_assigned",
             joinColumns = @JoinColumn(name = "project_id"),

@@ -3,7 +3,6 @@ package com.uma.tfg.entities;
 import java.time.LocalDate;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +23,7 @@ public class Activity {
     private LocalDate activityDate;
     private Integer flagActive;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
     @JsonIgnoreProperties(value= {"productsBought" , "bills", "tasksComments", "productsComments", "receivedMails", "writtenMails", "createdTasks", "assignedTasks", "gender", "country", "activitiesRelated", "activitiesCreated"}, allowSetters=true)
     @JoinTable(
             name = "user_assigned",
@@ -32,16 +31,16 @@ public class Activity {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> assignedUsers;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JsonIgnoreProperties(value= {"productsBought" , "bills", "tasksComments", "productsComments", "receivedMails", "writtenMails", "createdTasks", "assignedTasks", "gender", "country", "activitiesRelated", "activitiesCreated"}, allowSetters=true)
     private User creator;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
     @JsonIgnoreProperties(value= {"file" , "bills", "comments", "manuals", "profileImage", "images", "projects", "buyers"}, allowSetters=true)
     @JoinColumn(name="product_related")
     private Product product;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
     @JsonIgnoreProperties(value= {"comments", "images", "creator", "assignedUsers", "activities"}, allowSetters=true)
     @JoinColumn(name="task_related")
     private Task task;
@@ -51,7 +50,7 @@ public class Activity {
     @JoinColumn(name="project_related")
     private Project project;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
     @JsonIgnoreProperties(value= {"writer" , "receiver", "activities"}, allowSetters=true)
     @JoinColumn(name="mail_related")
     private Mail mail;

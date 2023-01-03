@@ -44,7 +44,7 @@ public class MailService {
 
                 mailRepository.save(mail);
                 
-                Activity act = new Activity();
+                /*Activity act = new Activity();
                 act.setAction("enviado");
                 act.setActivityDate(LocalDate.now());
                 act.setMail(mail);
@@ -55,7 +55,7 @@ public class MailService {
         		users.add(receiver);
                 act.setAssignedUsers(users);
                 
-                activityRepository.save(act);
+                activityRepository.save(act);*/
     		}
     	}
     }

@@ -36,7 +36,7 @@ public class Product {
     @JsonIgnoreProperties(value= {"user", "product"}, allowSetters=true)
     private Set<Bill> bills;
     
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "productsRelated")
+    @ManyToMany(mappedBy = "productsRelated")
     @JsonIgnoreProperties(value= {"productsRelated", "creator"}, allowSetters=true)
     private Set<New> relatedNews;
 
@@ -66,7 +66,7 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private Set<Project> projects;
     
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "productsBought")
+    @ManyToMany(mappedBy = "productsBought")
     @JsonIgnoreProperties(value= {"tasksComments", "file", "bills", "manuals", "profileImage", "images", "projects", "projectsAssigned", "activitiesRelated", "productsBought", "createdTasks", "createdNews", "assignedTasks", "activitiesCreated", "productsComments", "projectsCreated", "rates", "receivedMails", "writtenMails"}, allowSetters=true)
     private Set<User> buyers;
     

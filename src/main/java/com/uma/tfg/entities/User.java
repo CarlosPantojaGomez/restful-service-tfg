@@ -44,7 +44,7 @@ public class User {
     @JsonIgnoreProperties(value= {"creator" , "product"}, allowSetters=true)
     private Set<ProductComment> productsComments;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver")
+    @OneToMany(mappedBy = "receiver")
     @JsonIgnoreProperties(value= {"writer" , "receiver", "activities"}, allowSetters=true)
     private Set<Mail> receivedMails;
     
@@ -64,11 +64,11 @@ public class User {
     @JsonIgnoreProperties(value= {"productsRelated" , "creator"}, allowSetters=true)
     private Set<New> createdNews;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "assignedUsers")
+    @ManyToMany( mappedBy = "assignedUsers")
     @JsonIgnoreProperties(value= {"comments" , "images", "creator", "assignedUsers", "activities", "project"}, allowSetters=true)
     private Set<Task> assignedTasks;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "usersRelated")
+    @ManyToMany( mappedBy = "usersRelated")
     @JsonIgnoreProperties(value= {"tasks", "product", "creator", "usersRelated", "activities"}, allowSetters=true)
     private Set<Project> projectsAssigned;
     
@@ -77,7 +77,7 @@ public class User {
     private Set<Project> projectsCreated;
     
     
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "user_buyer",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -93,12 +93,12 @@ public class User {
     @JsonIgnoreProperties(value= {"assignedUsers" , "creator", "product", "task", "project", "mail"}, allowSetters=true)
     private Set<Activity> activitiesCreated;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonIgnoreProperties(value= {"user"}, allowSetters=true)
     @JoinColumn(name="user_place")
     private Country country;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonIgnoreProperties(value= {"user"}, allowSetters=true)
     @JoinColumn(name="user_gender")
     private Gender gender;

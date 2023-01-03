@@ -23,7 +23,7 @@ public class Basket {
     
     private Double amount;
     
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "product_baskets",
             joinColumns = @JoinColumn(name = "basket_id"),
@@ -31,7 +31,7 @@ public class Basket {
     @JsonIgnoreProperties(value= {"file" , "bills", "relatedNews", "comments", "rates", "manuals", "images", "projects", "buyers", "baskets", "activities"}, allowSetters=true)
     private Set<Product> products;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JsonIgnoreProperties(value= {"tasksComments", "file", "bills", "manuals", "profileImage", "images", "projects", "projectsAssigned", "activitiesRelated", "productsBought", "createdTasks", "createdNews", "assignedTasks", "activitiesCreated", "productsComments", "projectsCreated", "rates", "receivedMails", "writtenMails"}, allowSetters=true)
     private User user;
     

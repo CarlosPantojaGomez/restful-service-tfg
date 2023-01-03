@@ -6,6 +6,8 @@ import com.uma.tfg.entities.Product;
 import com.uma.tfg.entities.ProductImage;
 import com.uma.tfg.entities.ProductRate;
 import com.uma.tfg.entities.ProductRequest;
+import com.uma.tfg.entities.Project;
+import com.uma.tfg.entities.Task;
 import com.uma.tfg.entities.User;
 import com.uma.tfg.services.FileService;
 import com.uma.tfg.services.ManualService;
@@ -147,7 +149,7 @@ public class ProductController {
         	prod.setProfileImage(null);
         }
     	
-    	List<ProductImage> productImages =  productImageService.findByImageTypeAndProduct(2, prod);
+    	/*List<ProductImage> productImages =  productImageService.findByImageTypeAndProduct(2, prod);
     	
 		productImages.forEach((image)->{
         	System.out.println("Id de la imagen "+image.getId());
@@ -157,20 +159,46 @@ public class ProductController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    	});
+    	});*/
 		
 		Set<ProductImage> images = new HashSet<>();
+    	System.out.println("Tamaño imagenes:" +request.getMainImages().size());
     	
-    	request.getMainImages().forEach((image)->{
-    		image.setProduct(prod);
-    		image.setImageType(2);
-        	ProductImage productimage = productImageService.createProductImage(image);
-        	System.out.println(productimage);
-        	images.add(productimage);
-        	System.out.println(images);
-    	});
+    	if(prod.getImages().size() != 0) {
+
+    		prod.getImages().forEach((image)->{
+
+            	ProductImage productimage;
+				try {
+					productimage = productImageService.getProductImage(image.getId());
+	            	productimage.setProduct(null);
+	            	productImageService.createProductImage(image);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	});
+        	
+        	prod.setImages(images);
+    	} else {
+    		prod.setImages(null);
+    	}
     	
-    	prod.setImages(images);
+    	if(request.getMainImages().size() != 0) {
+
+        	request.getMainImages().forEach((image)->{
+        		image.setProduct(prod);
+        		image.setImageType(2);
+            	ProductImage productimage = productImageService.createProductImage(image);
+            	System.out.println(productimage);
+            	images.add(productimage);
+            	System.out.println(images);
+        	});
+        	
+        	prod.setImages(images);
+    	} else {
+    		prod.setImages(null);
+    	}
         
         if (request.getFile() != null) {
     		File file = new File();
@@ -286,27 +314,48 @@ public class ProductController {
     	
     	Set<User> usersRelated = new HashSet<>();
 		if(p.getProjects() != null) {
-			p.getProjects().forEach((project)->{
+			try {
+				p.getProjects().forEach((pr)->{
 
-				if(project.getTasks() != null) {
-					project.getTasks().forEach((task)->{
+					Project project;
+					try {
+						project = projectService.getProject(pr.getId());
+						if( project != null && project.getTasks() != null) {
+							project.getTasks().forEach((tsk)->{
+								Task task;
+								try {
+									task = taskService.getTask(tsk.getId());
+									try {
+										taskService.delete(task.getId(), true);
+									} catch (Exception e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								} catch (Exception e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								
+					    	});
+						}
+						
 						try {
-							taskService.delete(task.getId());
+							projectService.delete(project.getId());
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-			    	});
-				}
-				
-				try {
-					projectService.delete(project.getId());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-	    	});
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					
+		    	});
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
 		}
 
 		p.setBuyers(usersRelated);

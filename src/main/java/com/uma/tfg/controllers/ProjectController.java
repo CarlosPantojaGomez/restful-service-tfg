@@ -68,23 +68,10 @@ public class ProjectController {
 
     @DeleteMapping("/project/delete/{id}")
     public void deleteProject(@PathVariable Long id) throws Exception {
+
     	
-    	Project p = projectService.getProject(id);
-    	
-    	Set<User> usersRelated = new HashSet<>();
-		if(p.getTasks() != null) {
-			p.getTasks().forEach((task)->{
-				try {
-					taskService.delete(task.getId());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	    	});
-		}
-		
-		
-		p.setUsersRelated(usersRelated);
     	projectService.delete(id);
+
+    	//projectService.delete(id);
     }
 }

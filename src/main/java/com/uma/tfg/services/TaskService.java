@@ -217,18 +217,25 @@ public class TaskService {
         return (List<Task>) taskRepository.findByProjectAndFlagActive(project,1);
     }
 
-    public void delete(Long id) throws Exception{
+    public void delete(Long id, boolean multiple) throws Exception{
     	Optional<Task> task = taskRepository.findById(id);
-
-    	task.get().setFlagActive(0);
     	
-    	task.get().getActivities().forEach((activityRelated)->{
-    		activityRepository.setFlagActive(0, activityRelated.getId());
-    	});
+    	if(task.get() != null) {
 
-    	task.get().setFlagActive(0);
-    	
-    	taskRepository.save(task.get());
+        	task.get().setFlagActive(0);
+        	
+        	task.get().getActivities().forEach((activityRelated)->{
+        		activityRepository.setFlagActive(0, activityRelated.getId());
+        	});
+        	
+        	if(!multiple) {
+        		taskRepository.save(task.get());
+        	}
+    	}
+    }
+    
+    public void deleteAll(Set<Task> tasks) throws Exception{
+    	taskRepository.deleteAll(tasks);
     }
     
     public void addEmployeeToTask(Task task, Long id) throws Exception{

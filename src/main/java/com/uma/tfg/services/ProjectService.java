@@ -98,50 +98,53 @@ public class ProjectService {
 
     public Project getProject(Long id) throws Exception{
     	Project p = projectRepository.findByIdAndFlagActive(id, 1);
+    	if (p != null) {
+    		Set<Activity> activities = new HashSet<>();
+    		
+    		p.getActivities().forEach((activity)->{
+    			if(activity.getFlagActive() == 1) {
+    				activities.add(activity);
+    			}
+        	});
+    		
+    		p.setActivities(activities);
+    		
+    		Set<Task> tasks = new HashSet<>();
+    		
+    		p.getTasks().forEach((task)->{
+    			if(task.getFlagActive() == 1) {
+    				tasks.add(task);
+    			}
+        	});
+    		
+    		p.setTasks(tasks);
+    		
+    		Set<User> usersRelated = new HashSet<>();
+    		
+    		p.getUsersRelated().forEach((user)->{
+    			if(user.getFlagActive() == 1) {
+    				usersRelated.add(user);
+    			}
+        	});
+    		
+    		p.setUsersRelated(usersRelated);
+    		
+            return p;
+    	} else {
+    		return null;
+    	}
     	
-    	Set<Activity> activities = new HashSet<>();
-		
-		p.getActivities().forEach((activity)->{
-			if(activity.getFlagActive() == 1) {
-				activities.add(activity);
-			}
-    	});
-		
-		p.setActivities(activities);
-		
-		Set<Task> tasks = new HashSet<>();
-		
-		p.getTasks().forEach((task)->{
-			if(task.getFlagActive() == 1) {
-				tasks.add(task);
-			}
-    	});
-		
-		p.setTasks(tasks);
-		
-		Set<User> usersRelated = new HashSet<>();
-		
-		p.getUsersRelated().forEach((user)->{
-			if(user.getFlagActive() == 1) {
-				usersRelated.add(user);
-			}
-    	});
-		
-		p.setUsersRelated(usersRelated);
-		
-        return p;
     }
     
     public void delete(Long id) throws Exception {
     	Optional<Project> p = projectRepository.findById(id); 
+    	p.get().setUsersRelated(null);
+    	p.get().setCreator(null);
     	
-    	p.get().getActivities().forEach((activityRelated)->{
-    		activityRepository.setFlagActive(0, activityRelated.getId());
-    	});
-    	
+    	Project saved = projectRepository.save(p.get());
+    	Set<Project> projects = new HashSet<>();
+    	projects.add(saved);
 
-    	p.get().setFlagActive(0);
-    	
-    	projectRepository.save(p.get());
+    	projectRepository.delete(saved);
     }
 }

@@ -14,11 +14,11 @@ public class TaskComment {
     private LocalDate creationDate;
     private String text;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonIgnoreProperties(value= {"file", "bills", "manuals", "profileImage", "images", "projects", "tasksComments"}, allowSetters=true)
     private User creator;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Task task;
 
     public TaskComment() {}

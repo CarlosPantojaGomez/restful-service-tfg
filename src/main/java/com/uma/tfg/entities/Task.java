@@ -32,11 +32,11 @@ public class Task {
     @JsonIgnoreProperties(value= {"task"}, allowSetters=true)
     private Set<TaskImage> images;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonIgnoreProperties(value= {"createdTasks" , "assignedTasks", "receivedMails", "writtenMails", "bills", "tasksComments", "productsComments"}, allowSetters=true)
     private User creator;
     
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "task_assigned",
             joinColumns = @JoinColumn(name = "task_id"),
@@ -48,7 +48,7 @@ public class Task {
     @JsonIgnoreProperties(value= {"assignedUsers" , "product", "task", "project"}, allowSetters=true)
     private Set<Activity> activities;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonIgnoreProperties(value= {"tasks", "creator", "usersRelated"}, allowSetters=true)
     private Project project;
 

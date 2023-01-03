@@ -12,7 +12,7 @@ public class TaskImage {
     @Lob
     private String url;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Task task;
 
     public TaskImage() {}
